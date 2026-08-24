@@ -36,13 +36,8 @@ public class GunController : MonoBehaviour
         }
     }
 
-    private void Shoot()
+    private Vector3 bulletRayCast()
     {
-        if (isReloading || bullet.activeSelf)
-            return;
-
-        animator.SetTrigger("Shoot");
-
         Ray aimRay = mainCamera.ViewportPointToRay(
             new Vector3(0.5f, 0.5f, 0f)
         );
@@ -58,6 +53,7 @@ public class GunController : MonoBehaviour
             QueryTriggerInteraction.Collide
         );
 
+        // Raycast Debugging
         if (hitSomething)
         {
             aimPoint = hit.point;
@@ -80,6 +76,18 @@ public class GunController : MonoBehaviour
                 reloadDuration
             );
         }
+
+        return aimPoint;
+    }
+
+    private void Shoot()
+    {
+        if (isReloading || bullet.activeSelf)
+            return;
+
+        animator.SetTrigger("Shoot");
+
+        Vector3 aimPoint = bulletRayCast();
 
         Vector3 shootDirection =
             (aimPoint - firePoint.position).normalized;
