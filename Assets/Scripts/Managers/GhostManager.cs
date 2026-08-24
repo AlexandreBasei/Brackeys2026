@@ -6,7 +6,7 @@ public class GhostManager : MonoBehaviour
 {
     public bool triggered;
     public float timerReduction;
-    public List<GameObject> bystanders;
+    public List<BystanderScript> bystanders;
     
     void Start()
     {
@@ -22,7 +22,7 @@ public class GhostManager : MonoBehaviour
         while (triggered == false & bystanders.Count == 0)
         {
             yield return new WaitForSeconds(Random.Range(7f-timerReduction, 10f-timerReduction));
-            GameObject possessed = bystanders[Random.Range(0, bystanders.Count)];
+            BystanderScript possessed = bystanders[Random.Range(0, bystanders.Count)];
             //Ajouter le code pour le possédé
         }
     }
@@ -31,6 +31,11 @@ public class GhostManager : MonoBehaviour
     {
         yield return new WaitForSeconds(10f);
         timerReduction += 0.5f;
+    }
+
+    public void RemoveBystander(BystanderScript bystander)
+    {
+        bystanders.Remove(bystander);
     }
 
 }
