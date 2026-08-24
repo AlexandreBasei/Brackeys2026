@@ -7,9 +7,9 @@ public class AudioManager : PersistentSingleton<AudioManager>
     [SerializeField] private AudioSource SFX;
 
     [Header("-------AudioClipSFX-------")]
-    public AudioClip clic1;
-    public AudioClip clic2;
-    public AudioClip clic3;
+    public AudioClip[] clics;
+    [SerializeField] private AudioClip[] GunShots;
+    [SerializeField] private AudioClip GunReload;
 
     [Header("-------AudioClipMusic-------")]
     public AudioClip MusicMainMenu;
@@ -42,19 +42,16 @@ public class AudioManager : PersistentSingleton<AudioManager>
 
     public void PlayClic()
     {
-        var id = Random.Range(1,4);
-        switch (id)
-        {
-            case 1:
-                PlaySFX(clic1);
-                break;
-            case 2:
-                PlaySFX(clic2);
-                break;
-            case 3:
-                PlaySFX(clic3);
-                break;
-        }
-           
+        PlaySFX(clics[Random.Range(0, clics.Length)]);
+    }
+
+    public void PlayShoot()
+    {
+        PlaySFX(GunShots[Random.Range(0, GunShots.Length)]);
+    }
+
+    public void PlayReload()
+    {
+        PlaySFX(GunReload);
     }
 }
