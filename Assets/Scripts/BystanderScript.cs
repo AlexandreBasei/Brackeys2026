@@ -11,9 +11,11 @@ public class BystanderScript : MonoBehaviour
     private GameObject targetNode;
     public GameObject Player;
     private bool isPossessed = false;
+    [SerializeField] private Animator animator;
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         Nodes = new List<GameObject>();
         foreach (GameObject node in GameObject.FindGameObjectsWithTag("Node"))
         {
@@ -25,6 +27,7 @@ public class BystanderScript : MonoBehaviour
 
     void Update()
     {
+        animator.SetFloat("Speed", agent.velocity.magnitude);
         if (!isPossessed)
         {
             if (agent.remainingDistance <= agent.stoppingDistance)
