@@ -1,4 +1,5 @@
 using UnityEngine;
+using NaughtyAttributes;
 
 public class AudioManager : PersistentSingleton<AudioManager>
 {
@@ -6,15 +7,57 @@ public class AudioManager : PersistentSingleton<AudioManager>
     [SerializeField] private AudioSource music;
     [SerializeField] private AudioSource SFX;
 
-    [Header("-------AudioClipSFX-------")]
-    public AudioClip clic1;
-    public AudioClip clic2;
-    public AudioClip clic3;
 
     [Header("-------AudioClipMusic-------")]
     public AudioClip MusicMainMenu;
     public AudioClip MusicInGame;
     public AudioClip MusicEndGame;
+
+
+
+    [Foldout("AudioClipSFX/Step")]
+    public AudioClip step1;
+    [Foldout("AudioClipSFX/Step")]
+    public AudioClip step2;
+    [Foldout("AudioClipSFX/Step")]
+    public AudioClip step3;
+    [Foldout("AudioClipSFX/Gun sound")]
+    public AudioClip shoot1;
+
+    [Foldout("AudioClipSFX/Gun sound")]
+    public AudioClip shoot2;
+
+    [Foldout("AudioClipSFX/Gun sound")]
+    public AudioClip reload;
+
+    [Foldout("AudioClipSFX/Amiance Sound and Event")]
+    public AudioClip whisper1;
+
+    [Foldout("AudioClipSFX/Amiance Sound and Event")]
+    public AudioClip whisper2;
+
+    [Foldout("AudioClipSFX/Amiance Sound and Event")]
+    public AudioClip laught;
+
+    [Foldout("AudioClipSFX/Amiance Sound and Event")]
+    public AudioClip clock;
+
+    [Foldout("AudioClipSFX/Amiance Sound and Event")]
+    public AudioClip cough;
+
+    [Foldout("AudioClipSFX/Amiance Sound and Event")]
+    public AudioClip voice1;
+
+    [Foldout("AudioClipSFX/Amiance Sound and Event")]
+    public AudioClip voice2;
+
+    [Foldout("AudioClipSFX/Amiance Sound and Event")]
+    public AudioClip piano;
+
+    [Foldout("AudioClipSFX/Amiance Sound and Event")]
+    public AudioClip choir;
+
+
 
 
     void Start()
@@ -42,19 +85,19 @@ public class AudioManager : PersistentSingleton<AudioManager>
 
     public void PlayClic()
     {
-        var id = Random.Range(1,4);
+        var id = Random.Range(1, 4);
         switch (id)
         {
             case 1:
-                PlaySFX(clic1);
+                PlaySFX(step1);
                 break;
             case 2:
-                PlaySFX(clic2);
+                PlaySFX(step2);
                 break;
             case 3:
-                PlaySFX(clic3);
+                PlaySFX(step3);
                 break;
         }
-           
+
     }
 }
