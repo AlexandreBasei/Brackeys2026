@@ -13,7 +13,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void PlayGameOnClick()
     {
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("Day1");
         // AudioManager.Instance.PlayGameMusic();
     }
 
