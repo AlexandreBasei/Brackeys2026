@@ -10,6 +10,7 @@ public class GunController : MonoBehaviour
     [SerializeField] private LayerMask aimLayers;
     [SerializeField] private Transform firePoint;
     [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private GunVFXController gunVFXController;
 
     private bool isReloading;
     private GameObject bullet;
@@ -22,10 +23,14 @@ public class GunController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         mainCamera = Camera.main;
 
+        if (gunVFXController == null)
+            gunVFXController = GetComponent<GunVFXController>();
+
         bullet = Instantiate(bulletPrefab);
         bullet.SetActive(false);
 
-        bulletRigidbody = bullet.GetComponent<Rigidbody>();
+        bulletRigidbody =
+            bullet.GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -36,7 +41,7 @@ public class GunController : MonoBehaviour
         }
     }
 
-    private Vector3 bulletRayCast()
+    private Vector3 GetAimPoint(out RaycastHit hit)
     {
         Ray aimRay = mainCamera.ViewportPointToRay(
             new Vector3(0.5f, 0.5f, 0f)
@@ -47,34 +52,15 @@ public class GunController : MonoBehaviour
 
         bool hitSomething = Physics.Raycast(
             aimRay,
-            out RaycastHit hit,
+            out hit,
             maxAimDistance,
             aimLayers,
             QueryTriggerInteraction.Collide
         );
 
-        // Raycast Debugging
         if (hitSomething)
         {
             aimPoint = hit.point;
-
-            Debug.DrawLine(
-                aimRay.origin,
-                hit.point,
-                Color.red,
-                reloadDuration
-            );
-
-            Debug.Log("Raycast touche : " + hit.collider.name);
-        }
-        else
-        {
-            Debug.DrawRay(
-                aimRay.origin,
-                aimRay.direction * maxAimDistance,
-                Color.yellow,
-                reloadDuration
-            );
         }
 
         return aimPoint;
@@ -87,7 +73,21 @@ public class GunController : MonoBehaviour
 
         animator.SetTrigger("Shoot");
 
-        Vector3 aimPoint = bulletRayCast();
+        Vector3 aimPoint =
+            GetAimPoint(out RaycastHit hit);
+
+        if (gunVFXController != null)
+        {
+            gunVFXController.PlayMuzzleFlash();
+
+            gunVFXController.PlayTracer(
+                firePoint.position,
+                aimPoint
+            );
+
+            if (hit.collider != null)
+                gunVFXController.PlayHitVFX(hit);
+        }
 
         Vector3 shootDirection =
             (aimPoint - firePoint.position).normalized;
@@ -106,7 +106,8 @@ public class GunController : MonoBehaviour
         bulletRigidbody.linearVelocity =
             shootDirection * bulletSpeed;
 
-        bulletRigidbody.angularVelocity = Vector3.zero;
+        bulletRigidbody.angularVelocity =
+            Vector3.zero;
 
         bullet.GetComponent<PooledBullet>().Launch(this);
 
@@ -115,8 +116,12 @@ public class GunController : MonoBehaviour
 
     public void ReturnBulletToPool()
     {
-        bulletRigidbody.linearVelocity = Vector3.zero;
-        bulletRigidbody.angularVelocity = Vector3.zero;
+        bulletRigidbody.linearVelocity =
+            Vector3.zero;
+
+        bulletRigidbody.angularVelocity =
+            Vector3.zero;
+
         bullet.SetActive(false);
     }
 
@@ -124,7 +129,9 @@ public class GunController : MonoBehaviour
     {
         isReloading = true;
 
-        yield return new WaitForSeconds(reloadStartDelay);
+        yield return new WaitForSeconds(
+            reloadStartDelay
+        );
 
         animator.SetTrigger("Reload");
 
