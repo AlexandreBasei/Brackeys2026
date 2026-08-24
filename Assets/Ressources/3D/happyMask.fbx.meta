@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: 2f24dfa53efe6f94d9acdad0d94b61d0
+guid: a41ce1d33fc95ff45beb4bb4f8f7f364
 ModelImporter:
   serializedVersion: 24501
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Group15810Mat
-    second: {fileID: 670224309865224971, guid: f4d8d07c107904cdfb54156450f020f3, type: 3}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -39,7 +34,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.005
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -100,7 +95,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 0.00005
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
