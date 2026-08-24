@@ -23,7 +23,7 @@ public class GhostManager : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(7f-timerReduction, 10f-timerReduction));
             BystanderScript possessed = bystanders[Random.Range(0, bystanders.Count)];
-            //Ajouter le code pour le possédé
+            StartCoroutine(Possession());
         }
     }
 
