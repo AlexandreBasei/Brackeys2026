@@ -24,6 +24,7 @@ public class BystanderScript : MonoBehaviour
         }
         agent = GetComponent<NavMeshAgent>();
         ChoseTarget();
+        Player = PlayerController.Instance.gameObject;
     }
 
     void Update()
@@ -64,8 +65,12 @@ public class BystanderScript : MonoBehaviour
         isPossessed = true;
         targetNode = Player;
         agent.SetDestination(targetNode.transform.position);
+        agent.speed = 20f;
+        agent.acceleration = 16f;
         yield return new WaitForSeconds(Random.Range(3f, 6f));  
         isPossessed = false;
+        agent.speed = 5f;
+        agent.acceleration = 8f;
         ChoseTarget();
     }
 

@@ -68,6 +68,7 @@ public class GameManager : PersistentSingleton<GameManager>
     
     public void NextDay()
     {
+        FindBystanders();
         triggeredFrenzy = false;
         timerReduction = 0;
         StartCoroutine(Possession());
