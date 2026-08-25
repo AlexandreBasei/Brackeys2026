@@ -12,6 +12,7 @@ public class GunVFXController : MonoBehaviour
 
     [Header("Hit VFX")]
     [SerializeField] private GameObject hitVFX;
+    [SerializeField] private GameObject bystanderHitVFX;
 
     [Header("Muzzle Flash")]
     [SerializeField] private ParticleSystem muzzleFlash;
@@ -47,7 +48,7 @@ public class GunVFXController : MonoBehaviour
         muzzleFlash.Play(true);
     }
 
-    public void PlayHitVFX(RaycastHit hit)
+    public void PlayHitVFX(RaycastHit hit, bool isBystander)
     {
         if (hitVFX == null)
             return;
@@ -56,7 +57,7 @@ public class GunVFXController : MonoBehaviour
             Quaternion.LookRotation(hit.normal);
 
         GameObject effect = Instantiate(
-            hitVFX,
+            isBystander ? bystanderHitVFX : hitVFX,
             hit.point + hit.normal * 0.01f,
             rotation
         );

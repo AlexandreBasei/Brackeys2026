@@ -24,6 +24,11 @@ public class PooledBullet : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         ReturnToPool();
+        BystanderScript bystander = collision.collider.GetComponentInParent<BystanderScript>();
+        if (bystander != null)
+        {
+            bystander.OnDeath();
+        }
     }
 
     private void ReturnToPool()
