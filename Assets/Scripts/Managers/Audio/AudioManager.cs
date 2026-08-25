@@ -60,9 +60,8 @@ public class AudioManager : PersistentSingleton<AudioManager>
 
     [Foldout("AudioClipSFX/Amiance Sound and Event")]
     public AudioClip choir;
-
-
-
+    [Foldout("AudioClipSFX/Amiance Sound and Event")]
+    public AudioClip closeTuto;
 
     void Start()
     {

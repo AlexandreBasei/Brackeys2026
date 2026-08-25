@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class PlayerController : Singleton<PlayerController>
 {
@@ -14,15 +15,19 @@ public class PlayerController : Singleton<PlayerController>
     [SerializeField, Range(0f, 10f)] private float lookSpeedY = 2.0f;
     [SerializeField, Range(0f, 180f)] private float upperLookLimit = 80f;
     [SerializeField, Range(0f, 180f)] private float lowerLookLimit = 80f;
-    [SerializeField] private GameObject gun;
 
     [Header("Footsteps Parameters")]
     [SerializeField] private bool enableFootsteps = true;
     [SerializeField] private float baseStepSpeed = 0.5f;
+    
+    [Header("Screamer Parameters")]
+    [SerializeField] private GameObject redScreamer;
+    [SerializeField] private GameObject neutralScreamer;
     private float footstepTimer = 0f;
     private float GetCurrentOffset => baseStepSpeed;
 
     private Camera playerCamera;
+    private GameObject gun;
     private CharacterController characterController;
     private Vector3 moveDirection;
     private Vector2 currentInput;
@@ -34,8 +39,13 @@ public class PlayerController : Singleton<PlayerController>
         playerCamera = GetComponentInChildren<Camera>();
         characterController = GetComponent<CharacterController>();
         gun = GetComponentInChildren<GunController>().gameObject;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        // Cursor.lockState = CursorLockMode.Locked;
+        // Cursor.visible = false;
+    }
+
+    void Start()
+    {
+        TutoManager.Instance.ShowTuto();
     }
 
     void Update()
@@ -104,13 +114,37 @@ public class PlayerController : Singleton<PlayerController>
         BystanderScript enemy = other.gameObject.GetComponentInParent<BystanderScript>();
         if (enemy != null && enemy.isPossessed)
         {
-            if(dying)
-                return;
-            dying = true;
-            GameManager.Instance.Cleanup();
-            SceneManager.LoadScene("MainMenu");
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            StartCoroutine(DeathSequence(enemy));
         }
+    }
+
+    private IEnumerator DeathSequence(BystanderScript enemy)
+    {
+        if(dying)
+                yield return null;
+
+        dying = true;
+        GameManager.Instance.Cleanup();
+        GameManager.Instance.dayCount = 0;
+        TutoManager.Instance.currentDay = 0;
+
+        if (!enemy.isSmart)
+        {
+            redScreamer.SetActive(true);
+        }
+        else
+        {
+            neutralScreamer.SetActive(true);
+        }
+
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.MusicEndGame);
+
+        yield return new WaitForSeconds(7f);
+
+        AudioManager.Instance.StopMusic();
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.MusicMainMenu);
+        SceneManager.LoadScene("MainMenu");
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }

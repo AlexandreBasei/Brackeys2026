@@ -313,7 +313,7 @@ MonoBehaviour:
   GunReload: {fileID: 8300000, guid: 2cc965e3fb6979b448dbdac5dc46e64c, type: 3}
   MusicMainMenu: {fileID: 8300000, guid: 107fd7e0b0bf76b47803afb29353f3a6, type: 3}
   MusicInGame: {fileID: 8300000, guid: ab8842b42fcaba04193bd8bc50c78cbf, type: 3}
-  MusicEndGame: {fileID: 0}
+  MusicEndGame: {fileID: 8300000, guid: af16cae38a50daf4c8252d07df999ef9, type: 3}
   step1: {fileID: 8300000, guid: 9ae7c3d60f6fb3b45abebe8fdc831fac, type: 3}
   step2: {fileID: 8300000, guid: 5bd5b76976c31714f9a33bde9ef6561a, type: 3}
   step3: {fileID: 8300000, guid: a67715f73f72b164eba6f2c4f59cfee5, type: 3}
@@ -329,3 +329,4 @@ MonoBehaviour:
   voice2: {fileID: 8300000, guid: 37f4a3c8f23ee0f43a88a6394a733ec5, type: 3}
   piano: {fileID: 8300000, guid: e07acf4be273f6d4d884b12942c8e800, type: 3}
   choir: {fileID: 8300000, guid: b88dbe65e7d50fa468abba0b756e8602, type: 3}
+  closeTuto: {fileID: 8300000, guid: 4de9b0f3d44c23d4e8233c921b9c0a37, type: 3}

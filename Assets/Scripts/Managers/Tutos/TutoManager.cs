@@ -8,13 +8,12 @@ public class TutoManager : PersistentSingleton<TutoManager>
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI bodyText;
     [SerializeField] private Image[] tutoImages;
-    private int currentDay;
+    [HideInInspector] public int currentDay;
     private Canvas tutoCanvas;
     void Start()
     {
         tutoCanvas = GetComponent<Canvas>();
         currentDay = GameManager.Instance.dayCount;
-        ShowTuto();
     }
 
     public void ShowTuto()
@@ -47,6 +46,9 @@ public class TutoManager : PersistentSingleton<TutoManager>
     public void HideTuto()
     {
         tutoCanvas.enabled = false;
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.closeTuto);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         GameManager.Instance.NextDay();
     }
 
