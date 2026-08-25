@@ -13,10 +13,10 @@ public class BystanderScript : MonoBehaviour
     private Rigidbody[] ragdollBodies;
     [SerializeField] private LayerMask ragollExcludeLayers;
     public GameObject Player;
-    private bool isPossessed = false;
-    private bool isFaking = false;
-    private bool isStill = false;
-    private bool isDead = false;
+    public bool isPossessed = false;
+    public bool isFaking = false;
+    public bool isStill = false;
+    public bool isDead = false;
     private Animator animator;
     public GameObject neutralMask;
     public GameObject grumpyMask;
