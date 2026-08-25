@@ -50,4 +50,17 @@ public class TutoManager : PersistentSingleton<TutoManager>
         ShowTuto();
     }
 
+    public void NextTuto()
+    {
+        currentDay++;
+        if (currentDay < tutosData.Length)
+        {
+            ShowTuto();
+        }
+        else
+        {
+            HideTuto();
+        }
+    }
+
 }
