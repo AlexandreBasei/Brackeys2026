@@ -147,6 +147,7 @@ public class BystanderScript : MonoBehaviour
     public void OnDeath()
     {
         isDead = true;
+        GameManager.Instance.RemoveBystander(this);
         this.enabled = false;
     }
 

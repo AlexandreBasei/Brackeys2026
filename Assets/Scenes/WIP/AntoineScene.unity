@@ -538,7 +538,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 5b970df737f532a46a89fd62e815647e, type: 2}
     - target: {fileID: 8365593031650592588, guid: 38839898e0aec6849aeb5090cadbd020, type: 3}
       propertyPath: m_StoppingDistance
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8654203904746779616, guid: 38839898e0aec6849aeb5090cadbd020, type: 3}
       propertyPath: happyMask
