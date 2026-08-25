@@ -3306,6 +3306,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 72
   Player: {fileID: 0}
+  isPossessed: 0
+  isFaking: 0
+  isStill: 0
+  isDead: 0
   neutralMask: {fileID: 5448112591670367970}
   grumpyMask: {fileID: 4189132679558288719}
   happyMask: {fileID: 5334924578607606624}

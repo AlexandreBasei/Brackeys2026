@@ -311,8 +311,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d246064f720af3649809a46a42fb2f30, type: 3}
   - {fileID: 8300000, guid: bdf465c2d65dc0849b378e131fa40a93, type: 3}
   GunReload: {fileID: 8300000, guid: 2cc965e3fb6979b448dbdac5dc46e64c, type: 3}
-  MusicMainMenu: {fileID: 0}
-  MusicInGame: {fileID: 0}
+  MusicMainMenu: {fileID: 8300000, guid: 107fd7e0b0bf76b47803afb29353f3a6, type: 3}
+  MusicInGame: {fileID: 8300000, guid: ab8842b42fcaba04193bd8bc50c78cbf, type: 3}
   MusicEndGame: {fileID: 0}
   step1: {fileID: 8300000, guid: 9ae7c3d60f6fb3b45abebe8fdc831fac, type: 3}
   step2: {fileID: 8300000, guid: 5bd5b76976c31714f9a33bde9ef6561a, type: 3}

@@ -17,10 +17,13 @@ public class BystanderScript : MonoBehaviour
     public bool isFaking = false;
     public bool isStill = false;
     public bool isDead = false;
+    public bool isExcluded = false;
     private Animator animator;
     public GameObject neutralMask;
     public GameObject grumpyMask;
     public GameObject happyMask;
+    private Coroutine currentBehaviorCoroutine;
+
 
     [Header("-------Audio Source-------")]
     [SerializeField] private AudioSource audioSource;
@@ -82,6 +85,22 @@ public class BystanderScript : MonoBehaviour
             agent.SetDestination(targetNode.transform.position);
         }
     }
+    
+    public void StartBehavior(IEnumerator behavior)
+    {
+        StopBehavior();
+        currentBehaviorCoroutine = StartCoroutine(behavior);
+    }
+
+    public void StopBehavior()
+    {
+        if (currentBehaviorCoroutine != null)
+        {
+            StopCoroutine(currentBehaviorCoroutine);
+            currentBehaviorCoroutine = null;
+        }
+    }
+
 
     public IEnumerator Possession()
     {
@@ -158,8 +177,9 @@ public class BystanderScript : MonoBehaviour
 
     public void OnDeath()
     {
+        StopBehavior();
         isDead = true;
-        GameManager.Instance.RemoveBystander(this);
+        GameManager.Instance.RemoveBystander(this, true);
         PlayImpact();
         this.enabled = false;
     }
@@ -196,7 +216,28 @@ public class BystanderScript : MonoBehaviour
             body.excludeLayers = ragollExcludeLayers;
         }
 
-        OnDeath();
+        if (!isDead)
+        {
+            OnDeath();
+        }
+    }
+
+    public void Excluded()
+    {
+        if (!isExcluded && !isDead)
+        {
+            isExcluded = true;
+            GameManager.Instance.RemoveBystander(this, false);
+        }
+    }
+
+    public void Included()
+    {
+        if (!isDead && isExcluded)
+        {
+            isExcluded = false;
+            GameManager.Instance.AddBystander(this);
+        }
     }
 
     public void PlaySpawnSound()
