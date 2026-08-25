@@ -2747,6 +2747,66 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 643729173}
     m_Modifications:
+    - target: {fileID: 4986790124070997066, guid: 956b7e1d616a27642b78903735a76c97, type: 3}
+      propertyPath: choir
+      value: 
+      objectReference: {fileID: 8300000, guid: b88dbe65e7d50fa468abba0b756e8602, type: 3}
+    - target: {fileID: 4986790124070997066, guid: 956b7e1d616a27642b78903735a76c97, type: 3}
+      propertyPath: clock
+      value: 
+      objectReference: {fileID: 8300000, guid: 1353ae896a8222e49ad0d5964c7cbbd0, type: 3}
+    - target: {fileID: 4986790124070997066, guid: 956b7e1d616a27642b78903735a76c97, type: 3}
+      propertyPath: cough
+      value: 
+      objectReference: {fileID: 8300000, guid: 1469665853445f840bbdeef4f2b8663d, type: 3}
+    - target: {fileID: 4986790124070997066, guid: 956b7e1d616a27642b78903735a76c97, type: 3}
+      propertyPath: piano
+      value: 
+      objectReference: {fileID: 8300000, guid: e07acf4be273f6d4d884b12942c8e800, type: 3}
+    - target: {fileID: 4986790124070997066, guid: 956b7e1d616a27642b78903735a76c97, type: 3}
+      propertyPath: step1
+      value: 
+      objectReference: {fileID: 8300000, guid: 9ae7c3d60f6fb3b45abebe8fdc831fac, type: 3}
+    - target: {fileID: 4986790124070997066, guid: 956b7e1d616a27642b78903735a76c97, type: 3}
+      propertyPath: step2
+      value: 
+      objectReference: {fileID: 8300000, guid: 5bd5b76976c31714f9a33bde9ef6561a, type: 3}
+    - target: {fileID: 4986790124070997066, guid: 956b7e1d616a27642b78903735a76c97, type: 3}
+      propertyPath: step3
+      value: 
+      objectReference: {fileID: 8300000, guid: f0261db310ab74f408b955664cbd3491, type: 3}
+    - target: {fileID: 4986790124070997066, guid: 956b7e1d616a27642b78903735a76c97, type: 3}
+      propertyPath: laught
+      value: 
+      objectReference: {fileID: 8300000, guid: 19da096b363e154428756e09e86add86, type: 3}
+    - target: {fileID: 4986790124070997066, guid: 956b7e1d616a27642b78903735a76c97, type: 3}
+      propertyPath: reload
+      value: 
+      objectReference: {fileID: 8300000, guid: 2cc965e3fb6979b448dbdac5dc46e64c, type: 3}
+    - target: {fileID: 4986790124070997066, guid: 956b7e1d616a27642b78903735a76c97, type: 3}
+      propertyPath: shoot1
+      value: 
+      objectReference: {fileID: 8300000, guid: d246064f720af3649809a46a42fb2f30, type: 3}
+    - target: {fileID: 4986790124070997066, guid: 956b7e1d616a27642b78903735a76c97, type: 3}
+      propertyPath: shoot2
+      value: 
+      objectReference: {fileID: 8300000, guid: bdf465c2d65dc0849b378e131fa40a93, type: 3}
+    - target: {fileID: 4986790124070997066, guid: 956b7e1d616a27642b78903735a76c97, type: 3}
+      propertyPath: voice1
+      value: 
+      objectReference: {fileID: 8300000, guid: 873ac1bc9be564043b3e8c223f60a51f, type: 3}
+    - target: {fileID: 4986790124070997066, guid: 956b7e1d616a27642b78903735a76c97, type: 3}
+      propertyPath: voice2
+      value: 
+      objectReference: {fileID: 8300000, guid: 37f4a3c8f23ee0f43a88a6394a733ec5, type: 3}
+    - target: {fileID: 4986790124070997066, guid: 956b7e1d616a27642b78903735a76c97, type: 3}
+      propertyPath: whisper1
+      value: 
+      objectReference: {fileID: 8300000, guid: ba9efddeda477ea43870d836154e26a2, type: 3}
+    - target: {fileID: 4986790124070997066, guid: 956b7e1d616a27642b78903735a76c97, type: 3}
+      propertyPath: whisper2
+      value: 
+      objectReference: {fileID: 8300000, guid: 77f5320ff14eb744bbd0d97fe704ffd6, type: 3}
     - target: {fileID: 7866089079669873023, guid: 956b7e1d616a27642b78903735a76c97, type: 3}
       propertyPath: m_Name
       value: AudioManager
