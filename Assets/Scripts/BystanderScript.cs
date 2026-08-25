@@ -16,6 +16,7 @@ public class BystanderScript : MonoBehaviour
     private bool isPossessed = false;
     private bool isFaking = false;
     private bool isStill = false;
+    private bool isDead = false;
     private Animator animator;
     public GameObject neutralMask;
     public GameObject grumpyMask;
@@ -61,6 +62,8 @@ public class BystanderScript : MonoBehaviour
 
     void ChoseTarget()
     {
+        if(isDead)
+            return;
         if (Random.Range(0, 5) == 0)
         {
             StartCoroutine(StandStill());
@@ -143,7 +146,7 @@ public class BystanderScript : MonoBehaviour
     
     public void OnDeath()
     {
-        
+        isDead = true;
         this.enabled = false;
     }
 
