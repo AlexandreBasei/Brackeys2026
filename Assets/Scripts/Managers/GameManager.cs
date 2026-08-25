@@ -32,7 +32,14 @@ public class GameManager : PersistentSingleton<GameManager>
                 if (Random.Range(0f, 3f) <1)
                 {
                     chosenCoroutine = possessed.Fakeout();
+                }else if (dayCount >= 3 & Random.Range(0f, 4f) <1)
+                {
+                    chosenCoroutine = possessed.Feral();
                 }
+            }
+            if (dayCount == 4)
+            {
+                chosenCoroutine = possessed.Smart();
             }
             StartCoroutine(chosenCoroutine);
         }

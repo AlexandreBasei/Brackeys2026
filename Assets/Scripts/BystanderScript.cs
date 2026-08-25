@@ -131,7 +131,7 @@ public class BystanderScript : MonoBehaviour
         isPossessed = true;
         targetNode = Player;
         agent.SetDestination(targetNode.transform.position);
-        yield return new WaitForSeconds(Random.Range(3f, 6f));
+        yield return new WaitForSeconds(Random.Range(6f, 10f));
         isPossessed = false;
         ChoseTarget();
     }
