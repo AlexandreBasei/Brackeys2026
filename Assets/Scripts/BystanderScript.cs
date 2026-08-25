@@ -197,7 +197,10 @@ public class BystanderScript : MonoBehaviour
             body.excludeLayers = ragollExcludeLayers;
         }
 
-        OnDeath();
+        if (!isDead)
+        {
+            OnDeath();
+        }
     }
 
     public void Excluded()
