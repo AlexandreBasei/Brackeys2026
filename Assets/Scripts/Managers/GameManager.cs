@@ -7,7 +7,7 @@ public class GameManager : PersistentSingleton<GameManager>
     public bool triggeredFrenzy;
     public float timerReduction;
     public List<BystanderScript> bystanders;
-    public int dayCount = 0;
+    public int dayCount = 2;
     public float timeLeft;
     private IEnumerator runningTimer;
     private bool dayEnded;
@@ -25,7 +25,16 @@ public class GameManager : PersistentSingleton<GameManager>
         {
             yield return new WaitForSeconds(Random.Range(7f-timerReduction, 10f-timerReduction));
             BystanderScript possessed = bystanders[Random.Range(0, bystanders.Count)];
-            StartCoroutine( possessed.Possession());
+            IEnumerator chosenCoroutine;
+            chosenCoroutine = possessed.Possession();
+            if (dayCount >= 2)
+            {
+                if (Random.Range(0f, 3f) <1)
+                {
+                    chosenCoroutine = possessed.Fakeout();
+                }
+            }
+            StartCoroutine(chosenCoroutine);
         }
 
         if (bystanders.Count == 0)
