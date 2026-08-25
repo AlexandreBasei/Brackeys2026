@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : Singleton<PlayerController>
 {
@@ -94,5 +96,14 @@ public class PlayerController : Singleton<PlayerController>
             moveDirection.y += Physics.gravity.y * Time.deltaTime;
 
         characterController.Move(moveDirection * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        BystanderScript enemy = other.gameObject.GetComponentInParent<BystanderScript>();
+        if (enemy != null && enemy.isPossessed)
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 }

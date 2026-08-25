@@ -11,6 +11,8 @@ public class GameManager : PersistentSingleton<GameManager>
     public float timeLeft;
     private IEnumerator runningTimer;
     private bool dayEnded;
+    private int innocentKilled;
+    
 
     
     void Start()
@@ -25,23 +27,28 @@ public class GameManager : PersistentSingleton<GameManager>
         {
             yield return new WaitForSeconds(Random.Range(7f-timerReduction, 10f-timerReduction));
             BystanderScript possessed = bystanders[Random.Range(0, bystanders.Count)];
-            IEnumerator chosenCoroutine;
-            chosenCoroutine = possessed.Possession();
-            if (dayCount >= 2)
+            if (!possessed.isPossessed && !possessed.isFaking)
             {
-                if (Random.Range(0f, 3f) <1)
+                IEnumerator chosenCoroutine;
+                chosenCoroutine = possessed.Possession();
+                possessed.PlaySpawnSound();
+                if (dayCount >= 2)
                 {
-                    chosenCoroutine = possessed.Fakeout();
-                }else if (dayCount >= 3 & Random.Range(0f, 4f) <1)
-                {
-                    chosenCoroutine = possessed.Feral();
+                    if (Random.Range(0f, 3f) < 1)
+                    {
+                        chosenCoroutine = possessed.Fakeout();
+                    }
+                    else if (dayCount >= 3 && Random.Range(0f, 4f) <1)
+                    {
+                        chosenCoroutine = possessed.Feral();
+                    }
                 }
+                if (dayCount == 4)
+                {
+                    chosenCoroutine = possessed.Smart();
+                }
+                StartCoroutine(chosenCoroutine);
             }
-            if (dayCount == 4)
-            {
-                chosenCoroutine = possessed.Smart();
-            }
-            StartCoroutine(chosenCoroutine);
         }
 
         if (bystanders.Count == 0)
@@ -60,9 +67,28 @@ public class GameManager : PersistentSingleton<GameManager>
         }
     }
 
-    public void RemoveBystander(BystanderScript bystander)
+    public void RemoveBystander(BystanderScript bystander, bool killed)
     {
-        bystanders.Remove(bystander);
+        if (!bystander.isPossessed && killed)
+        {
+            innocentKilled++;
+        }
+
+        if (!bystander.isExcluded)
+        {
+            bystanders.Remove(bystander);
+        }
+        
+
+        if (innocentKilled >= 2)
+        {
+            Frenzy();
+        }
+    }
+
+    public void AddBystander(BystanderScript bystander)
+    {
+        bystanders.Add(bystander);
     }
 
     public void Frenzy()
@@ -132,4 +158,6 @@ public class GameManager : PersistentSingleton<GameManager>
         }
         
     }
+
+    
 }
