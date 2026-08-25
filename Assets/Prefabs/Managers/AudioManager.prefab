@@ -316,7 +316,7 @@ MonoBehaviour:
   MusicEndGame: {fileID: 0}
   step1: {fileID: 8300000, guid: 9ae7c3d60f6fb3b45abebe8fdc831fac, type: 3}
   step2: {fileID: 8300000, guid: 5bd5b76976c31714f9a33bde9ef6561a, type: 3}
-  step3: {fileID: 8300000, guid: f0261db310ab74f408b955664cbd3491, type: 3}
+  step3: {fileID: 8300000, guid: a67715f73f72b164eba6f2c4f59cfee5, type: 3}
   shoot1: {fileID: 8300000, guid: d246064f720af3649809a46a42fb2f30, type: 3}
   shoot2: {fileID: 8300000, guid: bdf465c2d65dc0849b378e131fa40a93, type: 3}
   reload: {fileID: 8300000, guid: 2cc965e3fb6979b448dbdac5dc46e64c, type: 3}
