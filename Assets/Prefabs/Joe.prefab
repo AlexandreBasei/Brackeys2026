@@ -3310,7 +3310,10 @@ MonoBehaviour:
   grumpyMask: {fileID: 4189132679558288719}
   happyMask: {fileID: 5334924578607606624}
   audioSource: {fileID: 1125660321829173141}
-  audioClips: {fileID: 8300000, guid: 61f35f32a0b9ef54c9b10513ee7861e0, type: 3}
+  spawnClip: {fileID: 8300000, guid: 61f35f32a0b9ef54c9b10513ee7861e0, type: 3}
+  impactClips:
+  - {fileID: 8300000, guid: f249f1eba1bd3534e9ddd44f4f6dbd1a, type: 3}
+  - {fileID: 8300000, guid: da6bc2c599366bc4782236dcf9d87231, type: 3}
 --- !u!82 &1125660321829173141
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3333,7 +3336,7 @@ AudioSource:
   Priority: 89
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 1000
+  MaxDistance: 10000
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0

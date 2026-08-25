@@ -25,7 +25,9 @@ public class BystanderScript : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
 
     [Header("-------Audio Clips-------")]
-    [SerializeField] private AudioClip audioClips;
+    [SerializeField] private AudioClip spawnClip;
+    [SerializeField] private AudioClip[] impactClips;
+
 
     void Awake()
     {
@@ -149,7 +151,7 @@ public class BystanderScript : MonoBehaviour
 
     public void OnDeath()
     {
-
+        PlayImpact();
         this.enabled = false;
     }
 
@@ -190,7 +192,17 @@ public class BystanderScript : MonoBehaviour
 
     public void PlaySpawnSound()
     {
-        audioSource.PlayOneShot(audioClips);
+        audioSource.PlayOneShot(spawnClip);
+    }
+
+    public void PlayImpact()
+    {
+        PlaySFX(impactClips[Random.Range(0, impactClips.Length)]);
+    }
+
+    public void PlaySFX(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
     }
 
 }
