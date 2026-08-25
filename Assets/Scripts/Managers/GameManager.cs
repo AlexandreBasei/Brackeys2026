@@ -7,16 +7,21 @@ public class GameManager : PersistentSingleton<GameManager>
     public bool triggeredFrenzy;
     public float timerReduction;
     public List<BystanderScript> bystanders;
-    public int dayCount = 2;
+    public List<BystanderScript> eligiblePossession;
+    public int dayCount = 0;
     public float timeLeft;
     private IEnumerator runningTimer;
     private bool dayEnded;
     private int innocentKilled;
+    public bool isPaused;
     
 
     
     void Start()
     {
+        bystanders = new List<BystanderScript>();
+        eligiblePossession = new List<BystanderScript>();
+        isPaused = true;
         NextDay();
     }
 
@@ -26,28 +31,33 @@ public class GameManager : PersistentSingleton<GameManager>
         while (triggeredFrenzy == false && bystanders.Count != 0)
         {
             yield return new WaitForSeconds(Random.Range(7f-timerReduction, 10f-timerReduction));
-            BystanderScript possessed = bystanders[Random.Range(0, bystanders.Count)];
-            if (!possessed.isPossessed && !possessed.isFaking)
+            if(isPaused)
+                yield break;
+            if (eligiblePossession.Count != 0)
             {
-                IEnumerator chosenCoroutine;
-                chosenCoroutine = possessed.Possession();
-                possessed.PlaySpawnSound();
-                if (dayCount >= 2)
+                BystanderScript possessed = eligiblePossession[Random.Range(0, eligiblePossession.Count)];
+                if (!possessed.isPossessed && !possessed.isFaking)
                 {
-                    if (Random.Range(0f, 3f) < 1)
+                    IEnumerator chosenCoroutine;
+                    chosenCoroutine = possessed.Possession();
+                    possessed.PlaySpawnSound();
+                    if (dayCount >= 2)
                     {
-                        chosenCoroutine = possessed.Fakeout();
+                        if (Random.Range(0f, 3f) < 1)
+                        {
+                            chosenCoroutine = possessed.Fakeout();
+                        }
+                        else if (dayCount >= 3 && Random.Range(0f, 4f) <1)
+                        {
+                            chosenCoroutine = possessed.Feral();
+                        }
                     }
-                    else if (dayCount >= 3 && Random.Range(0f, 4f) <1)
+                    if (dayCount == 4)
                     {
-                        chosenCoroutine = possessed.Feral();
+                        chosenCoroutine = possessed.Smart();
                     }
+                    possessed.StartBehavior(chosenCoroutine);
                 }
-                if (dayCount == 4)
-                {
-                    chosenCoroutine = possessed.Smart();
-                }
-                StartCoroutine(chosenCoroutine);
             }
         }
 
@@ -76,7 +86,7 @@ public class GameManager : PersistentSingleton<GameManager>
 
         if (!bystander.isExcluded)
         {
-            bystanders.Remove(bystander);
+            eligiblePossession.Remove(bystander);
         }
         
 
@@ -88,24 +98,29 @@ public class GameManager : PersistentSingleton<GameManager>
 
     public void AddBystander(BystanderScript bystander)
     {
-        bystanders.Add(bystander);
+        eligiblePossession.Add(bystander);
     }
 
     public void Frenzy()
     {
         foreach (BystanderScript bystander in bystanders)
         {
-            bystander.Frenzy();
+            if (!bystander.isDead)
+            {
+                bystander.Frenzy();
+            }
         }
     }
 
-    public void FindBystanders()
+    private void FindBystanders()
     {
         bystanders.Clear();
         foreach (BystanderScript bystander in FindObjectsOfType<BystanderScript>())
         {
             bystanders.Add(bystander);
         }
+        eligiblePossession.Clear();
+        eligiblePossession.AddRange(bystanders);
     }
     
     public void NextDay()
@@ -113,12 +128,14 @@ public class GameManager : PersistentSingleton<GameManager>
         FindBystanders();
         triggeredFrenzy = false;
         timerReduction = 0;
-        StartCoroutine(Possession());
-        StartCoroutine(TimerHandler());
-        dayCount++;
         timeLeft = 120f;
         runningTimer = GameDuration(timeLeft);
+        dayCount++;
+        isPaused = false;
+        PlayerController.Instance.dying = false;
         StartCoroutine(runningTimer);
+        StartCoroutine(Possession());
+        StartCoroutine(TimerHandler());
         dayEnded = false;
     }
 
@@ -128,12 +145,24 @@ public class GameManager : PersistentSingleton<GameManager>
         ChooseDay();
     }
 
+    public void Cleanup()
+    {
+        foreach (var bystander in bystanders)
+        {
+            bystander.StopBehavior();
+        }
+
+        isPaused = true;
+        bystanders.Clear();
+    }
+
 
     public void ChooseDay()
     {
         if(dayEnded)
             return;
         dayEnded = true;
+        Cleanup();
         switch (dayCount)
         {
             case 1:
@@ -149,10 +178,6 @@ public class GameManager : PersistentSingleton<GameManager>
                 NextDay();
                 break;
             case 4:
-                //Go to day 5
-                NextDay();
-                break;
-            case 5:
                 //End game
                 break;
         }

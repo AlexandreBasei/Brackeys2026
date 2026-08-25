@@ -7,6 +7,7 @@ public class PlayerController : Singleton<PlayerController>
     public bool CanMove { get; private set; } = true;
     [Header("Movement Parameters")]
     [SerializeField] private float walkSpeed = 5f;
+    public bool dying = false;
 
     [Header("Look Parameters")]
     [SerializeField, Range(0f, 10f)] private float lookSpeedX = 2.0f;
@@ -103,7 +104,13 @@ public class PlayerController : Singleton<PlayerController>
         BystanderScript enemy = other.gameObject.GetComponentInParent<BystanderScript>();
         if (enemy != null && enemy.isPossessed)
         {
+            if(dying)
+                return;
+            dying = true;
+            GameManager.Instance.Cleanup();
             SceneManager.LoadScene("MainMenu");
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 }
