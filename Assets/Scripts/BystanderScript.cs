@@ -11,6 +11,7 @@ public class BystanderScript : MonoBehaviour
     private GameObject targetNode;
     public GameObject Player;
     private bool isPossessed = false;
+    private bool isStill = false;
     [SerializeField] private Animator animator;
 
     void Start()
@@ -23,6 +24,7 @@ public class BystanderScript : MonoBehaviour
         }
         agent = GetComponent<NavMeshAgent>();
         ChoseTarget();
+        Player = PlayerController.Instance.gameObject;
     }
 
     void Update()
@@ -30,9 +32,12 @@ public class BystanderScript : MonoBehaviour
         animator.SetFloat("Speed", agent.velocity.magnitude);
         if (!isPossessed)
         {
-            if (agent.remainingDistance <= agent.stoppingDistance)
+            if (!isStill)
             {
-                ChoseTarget();
+                if (agent.remainingDistance <= agent.stoppingDistance)
+                {
+                    ChoseTarget();
+                }
             }
         }
         else
@@ -44,8 +49,15 @@ public class BystanderScript : MonoBehaviour
 
     void ChoseTarget()
     {
-        targetNode = Nodes[Random.Range(0, Nodes.Count)];
-        agent.SetDestination(targetNode.transform.position);
+        if (Random.Range(0, 5) == 0)
+        {
+            StartCoroutine(StandStill());
+        }
+        else
+        {
+            targetNode = Nodes[Random.Range(0, Nodes.Count)];
+            agent.SetDestination(targetNode.transform.position);
+        }
     }
 
     public IEnumerator Possession()
@@ -53,13 +65,29 @@ public class BystanderScript : MonoBehaviour
         isPossessed = true;
         targetNode = Player;
         agent.SetDestination(targetNode.transform.position);
+        agent.speed = 20f;
+        agent.acceleration = 16f;
         yield return new WaitForSeconds(Random.Range(3f, 6f));  
         isPossessed = false;
+        agent.speed = 5f;
+        agent.acceleration = 8f;
         ChoseTarget();
     }
 
+    public void Frenzy()
+    {
+        isPossessed = true;
+    }
+    
     public void OnDeath()
     {
         
+    }
+
+    public IEnumerator StandStill()
+    {
+        isStill = true;
+        yield return new WaitForSeconds(Random.Range(5f, 8f));
+        isStill = false;    
     }
 }
