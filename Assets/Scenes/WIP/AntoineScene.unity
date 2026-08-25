@@ -212,11 +212,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1948793391}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &522838702 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4189132679558288719, guid: 38839898e0aec6849aeb5090cadbd020, type: 3}
-  m_PrefabInstance: {fileID: 572617792}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &548579909
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,22 +251,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1580538246763139597, guid: 38839898e0aec6849aeb5090cadbd020, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 3e56259b7a0a1a54e97697479f3cc613, type: 2}
-    - target: {fileID: 4189132679558288719, guid: 38839898e0aec6849aeb5090cadbd020, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5334924578607606624, guid: 38839898e0aec6849aeb5090cadbd020, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5448112591670367970, guid: 38839898e0aec6849aeb5090cadbd020, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5973124749563535244, guid: 38839898e0aec6849aeb5090cadbd020, type: 3}
       propertyPath: m_Name
       value: Joe
@@ -316,26 +295,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7793165057193468018, guid: 38839898e0aec6849aeb5090cadbd020, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 5b970df737f532a46a89fd62e815647e, type: 2}
-    - target: {fileID: 8365593031650592588, guid: 38839898e0aec6849aeb5090cadbd020, type: 3}
-      propertyPath: m_StoppingDistance
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8654203904746779616, guid: 38839898e0aec6849aeb5090cadbd020, type: 3}
-      propertyPath: happyMask
-      value: 
-      objectReference: {fileID: 905601441}
-    - target: {fileID: 8654203904746779616, guid: 38839898e0aec6849aeb5090cadbd020, type: 3}
-      propertyPath: grumpyMask
-      value: 
-      objectReference: {fileID: 522838702}
-    - target: {fileID: 8654203904746779616, guid: 38839898e0aec6849aeb5090cadbd020, type: 3}
-      propertyPath: neutralMask
-      value: 
-      objectReference: {fileID: 1779570806}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -434,11 +393,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1948793391}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &905601441 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5334924578607606624, guid: 38839898e0aec6849aeb5090cadbd020, type: 3}
-  m_PrefabInstance: {fileID: 572617792}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1081267616
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,7 +425,7 @@ MonoBehaviour:
   triggeredFrenzy: 0
   timerReduction: 0
   bystanders: []
-  dayCount: 0
+  dayCount: 2
   timeLeft: 0
 --- !u!4 &1081267618
 Transform:
@@ -885,11 +839,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1948793391}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1779570806 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5448112591670367970, guid: 38839898e0aec6849aeb5090cadbd020, type: 3}
-  m_PrefabInstance: {fileID: 572617792}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1809151568
 GameObject:
   m_ObjectHideFlags: 0

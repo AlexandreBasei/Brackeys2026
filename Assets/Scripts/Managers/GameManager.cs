@@ -13,6 +13,8 @@ public class GameManager : PersistentSingleton<GameManager>
     private bool dayEnded;
 
     
+
+    
     void Start()
     {
         NextDay();
@@ -27,6 +29,7 @@ public class GameManager : PersistentSingleton<GameManager>
             BystanderScript possessed = bystanders[Random.Range(0, bystanders.Count)];
             IEnumerator chosenCoroutine;
             chosenCoroutine = possessed.Possession();
+            possessed.PlaySpawnSound();
             if (dayCount >= 2)
             {
                 if (Random.Range(0f, 3f) <1)
@@ -132,4 +135,6 @@ public class GameManager : PersistentSingleton<GameManager>
         }
         
     }
+
+    
 }
