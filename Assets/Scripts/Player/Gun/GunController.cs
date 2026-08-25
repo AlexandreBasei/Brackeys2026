@@ -76,6 +76,9 @@ public class GunController : MonoBehaviour
         Vector3 aimPoint =
             GetAimPoint(out RaycastHit hit);
 
+        Vector3 shootDirection =
+            (aimPoint - firePoint.position).normalized;
+
         if (gunVFXController != null)
         {
             gunVFXController.PlayMuzzleFlash();
@@ -86,11 +89,20 @@ public class GunController : MonoBehaviour
             );
 
             if (hit.collider != null)
-                gunVFXController.PlayHitVFX(hit);
-        }
+            {
+                BystanderScript bystander = hit.collider.GetComponentInParent<BystanderScript>();
+                bool isBystander = bystander != null;
 
-        Vector3 shootDirection =
-            (aimPoint - firePoint.position).normalized;
+                gunVFXController.PlayHitVFX(hit, isBystander);
+
+                if (isBystander)
+                {
+                    Vector3 forceDirection = shootDirection;
+                    forceDirection.y = 1f;
+                    bystander.TriggerRagdoll(forceDirection * bulletSpeed, hit.point);
+                }
+            }
+        }
 
         Quaternion rotation =
             Quaternion.LookRotation(shootDirection) *
