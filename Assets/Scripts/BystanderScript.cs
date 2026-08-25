@@ -15,6 +15,7 @@ public class BystanderScript : MonoBehaviour
     public GameObject Player;
     public bool isPossessed = false;
     public bool isFaking = false;
+    public bool isSmart = false;
     public bool isStill = false;
     public bool isDead = false;
     public bool isExcluded = false;
@@ -159,10 +160,12 @@ public class BystanderScript : MonoBehaviour
     public IEnumerator Smart()
     {
         isPossessed = true;
+        isSmart = true;
         targetNode = Player;
         agent.SetDestination(targetNode.transform.position);
         yield return new WaitForSeconds(Random.Range(6f, 10f));
         isPossessed = false;
+        isSmart = false;
         ChoseTarget();
     }
 

@@ -68,7 +68,7 @@ public class GunController : MonoBehaviour
 
     private void Shoot()
     {
-        if (isReloading)
+        if (isReloading || Cursor.lockState == CursorLockMode.None)
             return;
 
         animator.SetTrigger("Shoot");
