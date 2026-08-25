@@ -68,7 +68,7 @@ public class GunController : MonoBehaviour
 
     private void Shoot()
     {
-        if (isReloading || bullet.activeSelf)
+        if (isReloading)
             return;
 
         animator.SetTrigger("Shoot");
@@ -104,37 +104,7 @@ public class GunController : MonoBehaviour
             }
         }
 
-        Quaternion rotation =
-            Quaternion.LookRotation(shootDirection) *
-            Quaternion.Euler(90f, 0f, 180f);
-
-        bullet.SetActive(true);
-
-        bullet.transform.SetPositionAndRotation(
-            firePoint.position,
-            rotation
-        );
-
-        bulletRigidbody.linearVelocity =
-            shootDirection * bulletSpeed;
-
-        bulletRigidbody.angularVelocity =
-            Vector3.zero;
-
-        bullet.GetComponent<PooledBullet>().Launch(this);
-
         StartCoroutine(Reload());
-    }
-
-    public void ReturnBulletToPool()
-    {
-        bulletRigidbody.linearVelocity =
-            Vector3.zero;
-
-        bulletRigidbody.angularVelocity =
-            Vector3.zero;
-
-        bullet.SetActive(false);
     }
 
     private IEnumerator Reload()
