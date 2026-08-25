@@ -67,18 +67,28 @@ public class GameManager : PersistentSingleton<GameManager>
         }
     }
 
-    public void RemoveBystander(BystanderScript bystander)
+    public void RemoveBystander(BystanderScript bystander, bool killed)
     {
-        bystanders.Remove(bystander);
-        if (!bystander.isPossessed)
+        if (!bystander.isPossessed && killed)
         {
             innocentKilled++;
         }
+
+        if (!bystander.isExcluded)
+        {
+            bystanders.Remove(bystander);
+        }
+        
 
         if (innocentKilled >= 2)
         {
             Frenzy();
         }
+    }
+
+    public void AddBystander(BystanderScript bystander)
+    {
+        bystanders.Add(bystander);
     }
 
     public void Frenzy()

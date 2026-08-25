@@ -17,6 +17,7 @@ public class BystanderScript : MonoBehaviour
     public bool isFaking = false;
     public bool isStill = false;
     public bool isDead = false;
+    public bool isExcluded = false;
     private Animator animator;
     public GameObject neutralMask;
     public GameObject grumpyMask;
@@ -159,7 +160,7 @@ public class BystanderScript : MonoBehaviour
     public void OnDeath()
     {
         isDead = true;
-        GameManager.Instance.RemoveBystander(this);
+        GameManager.Instance.RemoveBystander(this, true);
         PlayImpact();
         this.enabled = false;
     }
@@ -197,6 +198,24 @@ public class BystanderScript : MonoBehaviour
         }
 
         OnDeath();
+    }
+
+    public void Excluded()
+    {
+        if (!isExcluded && !isDead)
+        {
+            isExcluded = true;
+            GameManager.Instance.RemoveBystander(this, false);
+        }
+    }
+
+    public void Included()
+    {
+        if (!isDead && isExcluded)
+        {
+            isExcluded = false;
+            GameManager.Instance.AddBystander(this);
+        }
     }
 
     public void PlaySpawnSound()
