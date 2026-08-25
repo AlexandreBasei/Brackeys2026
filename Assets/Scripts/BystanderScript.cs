@@ -69,6 +69,11 @@ public class BystanderScript : MonoBehaviour
         ChoseTarget();
     }
 
+    public void Frenzy()
+    {
+        isPossessed = true;
+    }
+    
     public void OnDeath()
     {
         
