@@ -150,6 +150,10 @@ public class BystanderScript : MonoBehaviour
     public void Frenzy()
     {
         isPossessed = true;
+        agent.speed = 13f;
+        agent.acceleration = 10f;
+        targetNode = Player;
+        agent.SetDestination(targetNode.transform.position);
     }
 
     public void OnDeath()

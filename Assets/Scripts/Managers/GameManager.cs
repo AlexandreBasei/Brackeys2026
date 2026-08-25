@@ -11,7 +11,7 @@ public class GameManager : PersistentSingleton<GameManager>
     public float timeLeft;
     private IEnumerator runningTimer;
     private bool dayEnded;
-
+    private int innocentKilled;
     
 
     
@@ -34,24 +34,20 @@ public class GameManager : PersistentSingleton<GameManager>
                 possessed.PlaySpawnSound();
                 if (dayCount >= 2)
                 {
-                    IEnumerator chosenCoroutine;
-                    chosenCoroutine = possessed.Possession();
-                    if (dayCount >= 2)
+                    if (Random.Range(0f, 3f) < 1)
                     {
-                        if (Random.Range(0f, 3f) <1)
-                        {
-                            chosenCoroutine = possessed.Fakeout();
-                        }else if (dayCount >= 3 && Random.Range(0f, 4f) <1)
-                        {
-                            chosenCoroutine = possessed.Feral();
-                        }
+                        chosenCoroutine = possessed.Fakeout();
                     }
-                    if (dayCount == 4)
+                    else if (dayCount >= 3 && Random.Range(0f, 4f) <1)
                     {
-                        chosenCoroutine = possessed.Smart();
+                        chosenCoroutine = possessed.Feral();
                     }
-                    StartCoroutine(chosenCoroutine);
                 }
+                if (dayCount == 4)
+                {
+                    chosenCoroutine = possessed.Smart();
+                }
+                StartCoroutine(chosenCoroutine);
             }
         }
 
@@ -74,6 +70,15 @@ public class GameManager : PersistentSingleton<GameManager>
     public void RemoveBystander(BystanderScript bystander)
     {
         bystanders.Remove(bystander);
+        if (!bystander.isPossessed)
+        {
+            innocentKilled++;
+        }
+
+        if (innocentKilled >= 2)
+        {
+            Frenzy();
+        }
     }
 
     public void Frenzy()
