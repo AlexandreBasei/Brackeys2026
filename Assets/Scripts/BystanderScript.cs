@@ -21,6 +21,14 @@ public class BystanderScript : MonoBehaviour
     public GameObject grumpyMask;
     public GameObject happyMask;
 
+    [Header("-------Audio Source-------")]
+    [SerializeField] private AudioSource audioSource;
+
+    [Header("-------Audio Clips-------")]
+    [SerializeField] private AudioClip spawnClip;
+    [SerializeField] private AudioClip[] impactClips;
+
+
     void Awake()
     {
         animator = GetComponent<Animator>();
@@ -140,10 +148,10 @@ public class BystanderScript : MonoBehaviour
     {
         isPossessed = true;
     }
-    
+
     public void OnDeath()
     {
-        
+        PlayImpact();
         this.enabled = false;
     }
 
@@ -151,7 +159,7 @@ public class BystanderScript : MonoBehaviour
     {
         isStill = true;
         yield return new WaitForSeconds(Random.Range(5f, 8f));
-        isStill = false;    
+        isStill = false;
     }
 
     private void SetRagdollState(bool isEnabled)
@@ -180,6 +188,21 @@ public class BystanderScript : MonoBehaviour
         }
 
         OnDeath();
+    }
+
+    public void PlaySpawnSound()
+    {
+        audioSource.PlayOneShot(spawnClip);
+    }
+
+    public void PlayImpact()
+    {
+        PlaySFX(impactClips[Random.Range(0, impactClips.Length)]);
+    }
+
+    public void PlaySFX(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
     }
 
 }
