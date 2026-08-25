@@ -18,5 +18,5 @@ MonoBehaviour:
     strangers. Be careful not to hurt too many innocent people : they might not take
     it very well. Survive for 4 days and you\u2019ll receive your payment. Good luck!"
   images:
-  - {fileID: 21300000, guid: 34836b78d78deea41b3db1a788a2c542, type: 3}
+  - {fileID: 21300000, guid: 0e85e7118fda7794e9e7768310a182d9, type: 3}
   - {fileID: 21300000, guid: 8d3489aec7ed76b44b039c44ad6ec0e7, type: 3}

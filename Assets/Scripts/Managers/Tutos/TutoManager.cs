@@ -47,7 +47,7 @@ public class TutoManager : PersistentSingleton<TutoManager>
     public void HideTuto()
     {
         tutoCanvas.enabled = false;
-        ShowTuto();
+        GameManager.Instance.NextDay();
     }
 
     public void NextTuto()
