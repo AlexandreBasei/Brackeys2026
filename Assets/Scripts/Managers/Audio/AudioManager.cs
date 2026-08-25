@@ -92,6 +92,30 @@ public class AudioManager : PersistentSingleton<AudioManager>
         PlaySFX(clics[Random.Range(0, clics.Length)]);
     }
 
+    public void PlayStep()
+    {
+        int randomIndex = Random.Range(0, 3);
+        AudioClip stepClip = null;
+
+        switch (randomIndex)
+        {
+            case 0:
+                stepClip = step1;
+                break;
+            case 1:
+                stepClip = step2;
+                break;
+            case 2:
+                stepClip = step3;
+                break;
+        }
+
+        if (stepClip != null)
+        {
+            PlaySFX(stepClip);
+        }
+    }
+
     public void PlayShoot()
     {
         PlaySFX(GunShots[Random.Range(0, GunShots.Length)]);

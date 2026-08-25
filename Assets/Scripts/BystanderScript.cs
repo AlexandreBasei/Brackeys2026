@@ -13,13 +13,25 @@ public class BystanderScript : MonoBehaviour
     private Rigidbody[] ragdollBodies;
     [SerializeField] private LayerMask ragollExcludeLayers;
     public GameObject Player;
-    private bool isPossessed = false;
-    private bool isFaking = false;
-    private bool isStill = false;
+    public bool isPossessed = false;
+    public bool isFaking = false;
+    public bool isStill = false;
+    public bool isDead = false;
+    public bool isExcluded = false;
     private Animator animator;
     public GameObject neutralMask;
     public GameObject grumpyMask;
     public GameObject happyMask;
+    private Coroutine currentBehaviorCoroutine;
+
+
+    [Header("-------Audio Source-------")]
+    [SerializeField] private AudioSource audioSource;
+
+    [Header("-------Audio Clips-------")]
+    [SerializeField] private AudioClip spawnClip;
+    [SerializeField] private AudioClip[] impactClips;
+
 
     void Awake()
     {
@@ -61,6 +73,8 @@ public class BystanderScript : MonoBehaviour
 
     void ChoseTarget()
     {
+        if(isDead)
+            return;
         if (Random.Range(0, 5) == 0)
         {
             StartCoroutine(StandStill());
@@ -71,6 +85,22 @@ public class BystanderScript : MonoBehaviour
             agent.SetDestination(targetNode.transform.position);
         }
     }
+    
+    public void StartBehavior(IEnumerator behavior)
+    {
+        StopBehavior();
+        currentBehaviorCoroutine = StartCoroutine(behavior);
+    }
+
+    public void StopBehavior()
+    {
+        if (currentBehaviorCoroutine != null)
+        {
+            StopCoroutine(currentBehaviorCoroutine);
+            currentBehaviorCoroutine = null;
+        }
+    }
+
 
     public IEnumerator Possession()
     {
@@ -131,7 +161,7 @@ public class BystanderScript : MonoBehaviour
         isPossessed = true;
         targetNode = Player;
         agent.SetDestination(targetNode.transform.position);
-        yield return new WaitForSeconds(Random.Range(3f, 6f));
+        yield return new WaitForSeconds(Random.Range(6f, 10f));
         isPossessed = false;
         ChoseTarget();
     }
@@ -139,11 +169,18 @@ public class BystanderScript : MonoBehaviour
     public void Frenzy()
     {
         isPossessed = true;
+        agent.speed = 13f;
+        agent.acceleration = 10f;
+        targetNode = Player;
+        agent.SetDestination(targetNode.transform.position);
     }
-    
+
     public void OnDeath()
     {
-        
+        StopBehavior();
+        isDead = true;
+        GameManager.Instance.RemoveBystander(this, true);
+        PlayImpact();
         this.enabled = false;
     }
 
@@ -151,7 +188,7 @@ public class BystanderScript : MonoBehaviour
     {
         isStill = true;
         yield return new WaitForSeconds(Random.Range(5f, 8f));
-        isStill = false;    
+        isStill = false;
     }
 
     private void SetRagdollState(bool isEnabled)
@@ -179,7 +216,43 @@ public class BystanderScript : MonoBehaviour
             body.excludeLayers = ragollExcludeLayers;
         }
 
-        OnDeath();
+        if (!isDead)
+        {
+            OnDeath();
+        }
+    }
+
+    public void Excluded()
+    {
+        if (!isExcluded && !isDead)
+        {
+            isExcluded = true;
+            GameManager.Instance.RemoveBystander(this, false);
+        }
+    }
+
+    public void Included()
+    {
+        if (!isDead && isExcluded)
+        {
+            isExcluded = false;
+            GameManager.Instance.AddBystander(this);
+        }
+    }
+
+    public void PlaySpawnSound()
+    {
+        audioSource.PlayOneShot(spawnClip);
+    }
+
+    public void PlayImpact()
+    {
+        PlaySFX(impactClips[Random.Range(0, impactClips.Length)]);
+    }
+
+    public void PlaySFX(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
     }
 
 }
