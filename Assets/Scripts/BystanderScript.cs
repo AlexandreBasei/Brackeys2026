@@ -143,7 +143,8 @@ public class BystanderScript : MonoBehaviour
     
     public void OnDeath()
     {
-        SetRagdollState(true);
+        
+        this.enabled = false;
     }
 
     public IEnumerator StandStill()
@@ -177,6 +178,8 @@ public class BystanderScript : MonoBehaviour
         {
             body.excludeLayers = ragollExcludeLayers;
         }
+
+        OnDeath();
     }
 
 }
