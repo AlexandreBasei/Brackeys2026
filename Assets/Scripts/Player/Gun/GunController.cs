@@ -72,6 +72,7 @@ public class GunController : MonoBehaviour
             return;
 
         animator.SetTrigger("Shoot");
+        AudioManager.Instance.PlayShoot();
 
         Vector3 aimPoint =
             GetAimPoint(out RaycastHit hit);
@@ -116,6 +117,7 @@ public class GunController : MonoBehaviour
         );
 
         animator.SetTrigger("Reload");
+        AudioManager.Instance.PlayReload();
 
         yield return new WaitForSeconds(
             reloadDuration - reloadStartDelay
