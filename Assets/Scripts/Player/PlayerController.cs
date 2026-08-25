@@ -16,8 +16,6 @@ public class PlayerController : Singleton<PlayerController>
     [Header("Footsteps Parameters")]
     [SerializeField] private bool enableFootsteps = true;
     [SerializeField] private float baseStepSpeed = 0.5f;
-    [SerializeField] private AudioSource footstepAudioSource = default;
-    [SerializeField] private AudioClip[] footstepClips = default;
     private float footstepTimer = 0f;
     private float GetCurrentOffset => baseStepSpeed;
 
@@ -44,10 +42,10 @@ public class PlayerController : Singleton<PlayerController>
             HandleMovementInput();
             HandleMouseLook();
 
-            // if(enableFootsteps)
-            // {
-            //     HandleFootsteps();
-            // }
+            if(enableFootsteps)
+            {
+                HandleFootsteps();
+            }
 
             ApplyFinalMovements();
         }
@@ -69,29 +67,26 @@ public class PlayerController : Singleton<PlayerController>
         rotationX = Mathf.Clamp(rotationX, -upperLookLimit, lowerLookLimit);
         playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
         transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeedX, 0);
-
-        // gun.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
-        // gun.transform.localPosition = new Vector3(0, 0, 0);
     }
 
-    // private void HandleFootsteps()
-    // {
-    //     if (!characterController.isGrounded) return;
+    private void HandleFootsteps()
+    {
+        if (!characterController.isGrounded) return;
 
-    //     if (currentInput == Vector2.zero)
-    //     {
-    //         footstepTimer = 0f;
-    //         return;
-    //     }
+        if (currentInput == Vector2.zero)
+        {
+            footstepTimer = 0f;
+            return;
+        }
 
-    //     footstepTimer -= Time.deltaTime;
+        footstepTimer -= Time.deltaTime;
 
-    //     if (footstepTimer <= 0f)
-    //     {
-    //         footstepAudioSource.PlayOneShot(footstepClips[Random.Range(0, footstepClips.Length)]);
-    //         footstepTimer = GetCurrentOffset;
-    //     }
-    // }
+        if (footstepTimer <= 0f)
+        {
+            AudioManager.Instance.PlayStep();
+            footstepTimer = GetCurrentOffset;
+        }
+    }
 
     private void ApplyFinalMovements()
     {
