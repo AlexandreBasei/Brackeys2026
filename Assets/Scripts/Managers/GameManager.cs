@@ -141,7 +141,12 @@ public class GameManager : PersistentSingleton<GameManager>
         dayCount++;
         isPaused = false;
         PlayerController.Instance.dying = false;
-        StartCoroutine(runningTimer);
+
+        if (dayCount != 4)
+        {
+            StartCoroutine(runningTimer);
+        }
+        
         StartCoroutine(Possession());
         StartCoroutine(TimerHandler());
         dayEnded = false;

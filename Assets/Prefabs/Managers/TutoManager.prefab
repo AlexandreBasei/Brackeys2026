@@ -441,6 +441,7 @@ MonoBehaviour:
   - {fileID: 3558764529577611143}
   - {fileID: 2072645318732604839}
   - {fileID: 1525159655162285473}
+  currentDay: 0
 --- !u!1 &4993642770776917750
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,8 +588,8 @@ MonoBehaviour:
     not take it very well... Survive for 4 days and you\u2019ll receive your payment.
     \n\nGood luck!"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6db574f35e756db4ab0a62568fd599fc, type: 2}
-  m_sharedMaterial: {fileID: -2798568108015237033, guid: 6db574f35e756db4ab0a62568fd599fc, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 35e76620b69d44e4ca837ed993953392, type: 2}
+  m_sharedMaterial: {fileID: -2798568108015237033, guid: 35e76620b69d44e4ca837ed993953392, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -724,8 +725,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Day 1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6db574f35e756db4ab0a62568fd599fc, type: 2}
-  m_sharedMaterial: {fileID: -2798568108015237033, guid: 6db574f35e756db4ab0a62568fd599fc, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 35e76620b69d44e4ca837ed993953392, type: 2}
+  m_sharedMaterial: {fileID: -2798568108015237033, guid: 35e76620b69d44e4ca837ed993953392, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -957,8 +958,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Start
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6db574f35e756db4ab0a62568fd599fc, type: 2}
-  m_sharedMaterial: {fileID: -2798568108015237033, guid: 6db574f35e756db4ab0a62568fd599fc, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 35e76620b69d44e4ca837ed993953392, type: 2}
+  m_sharedMaterial: {fileID: -2798568108015237033, guid: 35e76620b69d44e4ca837ed993953392, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
