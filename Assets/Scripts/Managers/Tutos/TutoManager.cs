@@ -48,12 +48,16 @@ public class TutoManager : PersistentSingleton<TutoManager>
         AudioManager.Instance.PlaySFX(AudioManager.Instance.closeTuto);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        PlayerController.Instance.CanLook = true;
+        PlayerController.Instance.timerText.enabled = true;
         GameManager.Instance.NextDay();
     }
 
     public void NextTuto()
     {
         currentDay++;
+        PlayerController.Instance.CanLook = false;
+        PlayerController.Instance.timerText.enabled = false;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
