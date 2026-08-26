@@ -171,6 +171,7 @@ public class GameManager : PersistentSingleton<GameManager>
 
         isPaused = true;
         triggeredFrenzy = false;
+        innocentKilled = 0;
         bystanders.Clear();
     }
 
@@ -186,14 +187,17 @@ public class GameManager : PersistentSingleton<GameManager>
             case 1:
                 TutoManager.Instance.NextTuto();
                 SceneManager.LoadScene("Day2");
+                AudioManager.Instance.PlaySFX(AudioManager.Instance.nextDay);
                 break;
             case 2:
                 TutoManager.Instance.NextTuto();
                 SceneManager.LoadScene("Day3");
+                AudioManager.Instance.PlaySFX(AudioManager.Instance.nextDay);
                 break;
             case 3:
                 TutoManager.Instance.NextTuto();
                 SceneManager.LoadScene("Day4");
+                AudioManager.Instance.PlaySFX(AudioManager.Instance.nextDay);
                 break;
             case 4:
                 StartCoroutine(killerEndSequence());
@@ -212,8 +216,6 @@ public class GameManager : PersistentSingleton<GameManager>
     public void ResetGame()
     {
         dayCount = 0;
-        innocentKilled = 0;
-        triggeredFrenzy = false;
         agressive = false;
         Cleanup();
     }

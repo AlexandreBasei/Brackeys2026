@@ -311,6 +311,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d246064f720af3649809a46a42fb2f30, type: 3}
   - {fileID: 8300000, guid: bdf465c2d65dc0849b378e131fa40a93, type: 3}
   GunReload: {fileID: 8300000, guid: 2cc965e3fb6979b448dbdac5dc46e64c, type: 3}
+  nextDay: {fileID: 8300000, guid: 78a2f7c50b087a541ad15bf75b5ab55a, type: 3}
   MusicMainMenu: {fileID: 8300000, guid: 107fd7e0b0bf76b47803afb29353f3a6, type: 3}
   MusicInGame: {fileID: 8300000, guid: ab8842b42fcaba04193bd8bc50c78cbf, type: 3}
   MusicScreamer: {fileID: 8300000, guid: af16cae38a50daf4c8252d07df999ef9, type: 3}
