@@ -94,6 +94,7 @@ public class GameManager : PersistentSingleton<GameManager>
         if (killed)
         {
             agressive = true;
+            bystanders.Remove(bystander);
         }
 
         if (innocentKilled >= 2)
