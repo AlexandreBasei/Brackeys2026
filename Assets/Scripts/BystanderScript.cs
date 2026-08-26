@@ -235,8 +235,8 @@ public class BystanderScript : MonoBehaviour
     {
         if (!isExcluded && !isDead)
         {
-            isExcluded = true;
             GameManager.Instance.RemoveBystander(this, false);
+            isExcluded = true;
         }
     }
 
