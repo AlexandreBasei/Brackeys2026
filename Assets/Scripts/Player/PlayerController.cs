@@ -72,7 +72,11 @@ public class PlayerController : Singleton<PlayerController>
             ApplyFinalMovements();
         }
 
-        if (!GameManager.Instance.isPaused && GameManager.Instance.dayCount != 4)
+        bool shouldShowTimer = !GameManager.Instance.isPaused && GameManager.Instance.dayCount != 4;
+
+        timerText.enabled = shouldShowTimer;
+
+        if (shouldShowTimer)
         {
             TimeSpan time = TimeSpan.FromSeconds(GameManager.Instance.timeLeft);
             timerText.text = time.ToString(@"mm\:ss\:ff");

@@ -49,7 +49,12 @@ public class TutoManager : PersistentSingleton<TutoManager>
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         PlayerController.Instance.CanLook = true;
-        PlayerController.Instance.timerText.enabled = true;
+
+        if (currentDay != 4)
+            PlayerController.Instance.timerText.enabled = true;
+        else
+            PlayerController.Instance.timerText.enabled = false;
+            
         GameManager.Instance.NextDay();
     }
 
