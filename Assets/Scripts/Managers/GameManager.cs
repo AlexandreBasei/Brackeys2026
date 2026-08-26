@@ -184,12 +184,15 @@ public class GameManager : PersistentSingleton<GameManager>
         switch (dayCount)
         {
             case 1:
+                TutoManager.Instance.NextTuto();
                 SceneManager.LoadScene("Day2");
                 break;
             case 2:
+                TutoManager.Instance.NextTuto();
                 SceneManager.LoadScene("Day3");
                 break;
             case 3:
+                TutoManager.Instance.NextTuto();
                 SceneManager.LoadScene("Day4");
                 break;
             case 4:
@@ -213,6 +216,12 @@ public class GameManager : PersistentSingleton<GameManager>
         triggeredFrenzy = false;
         agressive = false;
         Cleanup();
+    }
+
+    private void showCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     private void loadMainMenu()
