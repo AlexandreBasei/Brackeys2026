@@ -22,7 +22,6 @@ public class GameManager : PersistentSingleton<GameManager>
         bystanders = new List<BystanderScript>();
         eligiblePossession = new List<BystanderScript>();
         isPaused = true;
-        NextDay();
     }
 
 
