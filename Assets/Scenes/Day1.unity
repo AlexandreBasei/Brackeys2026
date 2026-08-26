@@ -1801,14 +1801,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5590333279594428861, guid: 2dbae52adb75bfa41bedb6e6a2849205, type: 3}
-      propertyPath: maxDelay
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 5590333279594428861, guid: 2dbae52adb75bfa41bedb6e6a2849205, type: 3}
-      propertyPath: minDelay
-      value: 35
-      objectReference: {fileID: 0}
     - target: {fileID: 6942250394755006613, guid: 2dbae52adb75bfa41bedb6e6a2849205, type: 3}
       propertyPath: m_Name
       value: FullRoom
