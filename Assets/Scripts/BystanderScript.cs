@@ -196,10 +196,10 @@ public class BystanderScript : MonoBehaviour
 
     private void SetRagdollState(bool isEnabled)
     {
+        animator.enabled = !isEnabled;
+        agent.enabled = !isEnabled;
         foreach (Rigidbody body in ragdollBodies)
         {
-            animator.enabled = !isEnabled;
-            agent.enabled = !isEnabled;
             body.isKinematic = !isEnabled;
 
             body.linearVelocity = Vector3.zero;

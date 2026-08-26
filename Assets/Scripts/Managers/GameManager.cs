@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : PersistentSingleton<GameManager>
 {
@@ -15,9 +16,9 @@ public class GameManager : PersistentSingleton<GameManager>
     [HideInInspector] public int innocentKilled;
     public bool isPaused;
     public bool agressive;
-    
 
-    
+
+
     void Start()
     {
         bystanders = new List<BystanderScript>();
@@ -31,8 +32,8 @@ public class GameManager : PersistentSingleton<GameManager>
     {
         while (triggeredFrenzy == false && bystanders.Count != 0)
         {
-            yield return new WaitForSeconds(Random.Range(7f-timerReduction, 10f-timerReduction));
-            if(isPaused)
+            yield return new WaitForSeconds(Random.Range(7f - timerReduction, 10f - timerReduction));
+            if (isPaused)
                 yield break;
             if (eligiblePossession.Count != 0)
             {
@@ -48,7 +49,7 @@ public class GameManager : PersistentSingleton<GameManager>
                         {
                             chosenCoroutine = possessed.Fakeout();
                         }
-                        else if (dayCount >= 3 && Random.Range(0f, 4f) <1)
+                        else if (dayCount >= 3 && Random.Range(0f, 4f) < 1)
                         {
                             chosenCoroutine = possessed.Feral();
                         }
@@ -108,14 +109,14 @@ public class GameManager : PersistentSingleton<GameManager>
 
     public void Frenzy()
     {
-        triggeredFrenzy = true;
         foreach (BystanderScript bystander in bystanders)
         {
-            if (!bystander.isDead)
+            if (!bystander.isDead && !triggeredFrenzy)
             {
                 bystander.Frenzy();
             }
         }
+        triggeredFrenzy = true;
     }
 
     private void FindBystanders()
@@ -128,7 +129,7 @@ public class GameManager : PersistentSingleton<GameManager>
         eligiblePossession.Clear();
         eligiblePossession.AddRange(bystanders);
     }
-    
+
     public void NextDay()
     {
         FindBystanders();
@@ -148,7 +149,18 @@ public class GameManager : PersistentSingleton<GameManager>
     public IEnumerator GameDuration(float time)
     {
         yield return new WaitForSeconds(time);
-        ChooseDay();
+
+        if (!agressive)
+        {
+            PlayerController.Instance.showPacificEnd();
+            yield return new WaitForSeconds(5f);
+            AudioManager.Instance.StopMusic();
+            AudioManager.Instance.PlayMusic(AudioManager.Instance.MusicMainMenu);
+            ResetGame();
+            SceneManager.LoadScene("MainMenu");
+        }
+        else
+            ChooseDay();
     }
 
     public void Cleanup()
@@ -166,7 +178,7 @@ public class GameManager : PersistentSingleton<GameManager>
 
     public void ChooseDay()
     {
-        if(dayEnded)
+        if (dayEnded)
             return;
         dayEnded = true;
         Cleanup();
@@ -185,11 +197,30 @@ public class GameManager : PersistentSingleton<GameManager>
                 NextDay();
                 break;
             case 4:
-                //End game
+                StartCoroutine(killerEndSequence());
                 break;
         }
-        
+
     }
 
-    
+    private IEnumerator killerEndSequence()
+    {
+        PlayerController.Instance.showKillerEnd();
+        yield return new WaitForSeconds(5f);
+        AudioManager.Instance.StopMusic();
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.MusicMainMenu);
+        ResetGame();
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void ResetGame()
+    {
+        dayCount = 0;
+        innocentKilled = 0;
+        triggeredFrenzy = false;
+        agressive = false;
+        Cleanup();
+    }
+
+
 }
