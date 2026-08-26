@@ -11,8 +11,17 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Day1.unity
     guid: 7cfd9a8044183d848a3557c57907fa72
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/WIP/AntoineScene.unity
     guid: 0fd255a4a0d16e14db91cebb41b58c60
+  - enabled: 1
+    path: Assets/Scenes/Day2.unity
+    guid: 2574aa4483447bf4688980635e8bda0f
+  - enabled: 1
+    path: Assets/Scenes/Day3.unity
+    guid: cd50b6959a9cea244b7ccacf604a9629
+  - enabled: 1
+    path: Assets/Scenes/Day4.unity
+    guid: 1ce2ba3c2fcf94e42909a26e7086d0ca
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

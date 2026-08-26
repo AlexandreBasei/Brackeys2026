@@ -185,16 +185,13 @@ public class GameManager : PersistentSingleton<GameManager>
         switch (dayCount)
         {
             case 1:
-                //Go to day 2
-                NextDay();
+                SceneManager.LoadScene("Day2");
                 break;
             case 2:
-                //Go to day 3
-                NextDay();
+                SceneManager.LoadScene("Day3");
                 break;
             case 3:
-                //Go to day 4
-                NextDay();
+                SceneManager.LoadScene("Day4");
                 break;
             case 4:
                 StartCoroutine(killerEndSequence());
