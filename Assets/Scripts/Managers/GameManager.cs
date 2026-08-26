@@ -11,7 +11,6 @@ public class GameManager : PersistentSingleton<GameManager>
     public List<BystanderScript> eligiblePossession;
     public int dayCount = 0;
     public float timeLeft;
-    private IEnumerator runningTimer;
     private bool dayEnded;
     [HideInInspector] public int innocentKilled;
     public bool isPaused;
@@ -25,6 +24,22 @@ public class GameManager : PersistentSingleton<GameManager>
         eligiblePossession = new List<BystanderScript>();
         isPaused = true;
         agressive = false;
+    }
+
+    private void Update()
+    {
+        if (isPaused || dayEnded || dayCount == 4)
+            return;
+
+        timeLeft -= Time.deltaTime;
+
+        if (timeLeft <= 0f)
+        {
+            timeLeft = 0f;
+            EndDay();
+        }
+
+        print("timer reduction" + timerReduction);
     }
 
 
@@ -65,7 +80,6 @@ public class GameManager : PersistentSingleton<GameManager>
 
         if (bystanders.Count == 0)
         {
-            StopCoroutine(runningTimer);
             ChooseDay();
         }
     }
@@ -134,38 +148,36 @@ public class GameManager : PersistentSingleton<GameManager>
     public void NextDay()
     {
         FindBystanders();
+
         triggeredFrenzy = false;
-        timerReduction = 0;
+        timerReduction = 0f;
         timeLeft = 60f;
-        runningTimer = GameDuration(timeLeft);
+        dayEnded = false;
+
         dayCount++;
         isPaused = false;
+
         PlayerController.Instance.dying = false;
 
-        if (dayCount != 4)
-        {
-            StartCoroutine(runningTimer);
-        }
-        
         StartCoroutine(Possession());
         StartCoroutine(TimerHandler());
-        dayEnded = false;
     }
 
-    public IEnumerator GameDuration(float time)
+    private void EndDay()
     {
-        yield return new WaitForSeconds(time);
+        if (dayEnded)
+            return;
 
-        print("Day " + dayCount + " ended");
         if (!agressive)
         {
-            print("Pacific Ending");
-            PlayerController.Instance.showPacificEnd();
-            yield return new WaitForSeconds(5f);
-            loadMainMenu();
+            dayEnded = true;
+            Cleanup();
+            StartCoroutine(PacificEndSequence());
         }
         else
+        {
             ChooseDay();
+        }
     }
 
     public void Cleanup()
@@ -210,6 +222,13 @@ public class GameManager : PersistentSingleton<GameManager>
                 break;
         }
 
+    }
+
+    private IEnumerator PacificEndSequence()
+    {
+        PlayerController.Instance.showPacificEnd();
+        yield return new WaitForSeconds(5f);
+        loadMainMenu();
     }
 
     private IEnumerator killerEndSequence()

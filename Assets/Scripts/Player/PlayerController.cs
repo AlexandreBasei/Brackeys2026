@@ -6,7 +6,8 @@ using System.Collections;
 
 public class PlayerController : Singleton<PlayerController>
 {
-    public bool CanMove { get; private set; } = true;
+    public bool CanMove = true;
+    public bool CanLook = false;
     [Header("Movement Parameters")]
     [SerializeField] private float walkSpeed = 5f;
     public bool dying = false;
@@ -20,7 +21,7 @@ public class PlayerController : Singleton<PlayerController>
     [Header("Footsteps Parameters")]
     [SerializeField] private bool enableFootsteps = true;
     [SerializeField] private float baseStepSpeed = 0.5f;
-    
+
     [Header("Screamer Parameters")]
     [SerializeField] private GameObject redScreamer;
     [SerializeField] private GameObject neutralScreamer;
@@ -28,6 +29,7 @@ public class PlayerController : Singleton<PlayerController>
     [SerializeField] private GameObject pacificEnd;
     [SerializeField] private GameObject killerEnd;
     [SerializeField] private TextMeshProUGUI gameOverText;
+    public TextMeshProUGUI timerText;
     private float footstepTimer = 0f;
     private float GetCurrentOffset => baseStepSpeed;
 
@@ -58,21 +60,29 @@ public class PlayerController : Singleton<PlayerController>
         if (CanMove)
         {
             HandleMovementInput();
-            HandleMouseLook();
 
-            if(enableFootsteps)
+            if (CanLook)
+                HandleMouseLook();
+
+            if (enableFootsteps)
             {
                 HandleFootsteps();
             }
 
             ApplyFinalMovements();
         }
+
+        if (!GameManager.Instance.isPaused && GameManager.Instance.dayCount != 4)
+        {
+            TimeSpan time = TimeSpan.FromSeconds(GameManager.Instance.timeLeft);
+            timerText.text = time.ToString(@"mm\:ss\:ff");
+        }
     }
 
     private void HandleMovementInput()
     {
         currentInput = new Vector2(walkSpeed * Input.GetAxisRaw("Vertical"), walkSpeed * Input.GetAxis("Horizontal"));
-        
+
         float moveDirectionY = moveDirection.y;
         moveDirection = (transform.TransformDirection(Vector3.forward) * currentInput.x) + (transform.TransformDirection(Vector3.right) * currentInput.y);
         moveDirection.y = moveDirectionY;
@@ -128,16 +138,17 @@ public class PlayerController : Singleton<PlayerController>
 
     private IEnumerator DeathSequence(BystanderScript enemy)
     {
-        if(dying)
-                yield return null;
+        if (dying)
+            yield return null;
 
         dying = true;
+        timerText.enabled = false;
 
         if (!enemy.isSmart && !GameManager.Instance.triggeredFrenzy)
         {
             redScreamer.SetActive(true);
         }
-        else if(!enemy.isSmart && GameManager.Instance.triggeredFrenzy)
+        else if (!enemy.isSmart && GameManager.Instance.triggeredFrenzy)
         {
             frenzyScreamer.SetActive(true);
             showFrenzyText();
@@ -183,19 +194,19 @@ public class PlayerController : Singleton<PlayerController>
     }
 
     private void fadeInGameOverText()
-{
-    LeanTween.value(
-        gameOverText.gameObject,
-        gameOverText.color.a,
-        1f,
-        1f
-    )
-    .setEase(LeanTweenType.easeInOutQuad)
-    .setOnUpdate((float alpha) =>
     {
-        Color color = gameOverText.color;
-        color.a = alpha;
-        gameOverText.color = color;
-    });
-}
+        LeanTween.value(
+            gameOverText.gameObject,
+            gameOverText.color.a,
+            1f,
+            1f
+        )
+        .setEase(LeanTweenType.easeInOutQuad)
+        .setOnUpdate((float alpha) =>
+        {
+            Color color = gameOverText.color;
+            color.a = alpha;
+            gameOverText.color = color;
+        });
+    }
 }
