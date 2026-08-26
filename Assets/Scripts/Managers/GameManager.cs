@@ -75,7 +75,7 @@ public class GameManager : PersistentSingleton<GameManager>
         while (!dayEnded)
         {
             yield return new WaitForSeconds(10f);
-            timerReduction += 0.5f;
+            timerReduction += 1f;
         }
     }
 
@@ -135,7 +135,7 @@ public class GameManager : PersistentSingleton<GameManager>
         FindBystanders();
         triggeredFrenzy = false;
         timerReduction = 0;
-        timeLeft = 120f;
+        timeLeft = 60f;
         runningTimer = GameDuration(timeLeft);
         dayCount++;
         isPaused = false;
