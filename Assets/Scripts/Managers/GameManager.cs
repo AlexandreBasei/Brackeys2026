@@ -222,6 +222,8 @@ public class GameManager : PersistentSingleton<GameManager>
                 AudioManager.Instance.PlaySFX(AudioManager.Instance.nextDay);
                 break;
             case 4:
+                PlayerController.Instance.timerText.enabled = false;
+                TutoManager.Instance.ResetTuto();
                 StartCoroutine(killerEndSequence());
                 break;
         }

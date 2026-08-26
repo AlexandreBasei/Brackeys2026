@@ -62,4 +62,9 @@ public class TutoManager : PersistentSingleton<TutoManager>
         Cursor.visible = true;
     }
 
+    public void ResetTuto()
+    {
+        currentDay = 0;
+    }
+
 }
