@@ -105,13 +105,16 @@ public class BystanderScript : MonoBehaviour
 
     public IEnumerator Possession()
     {
-        isPossessed = true;
-        targetNode = Player;
-        agent.SetDestination(targetNode.transform.position);
         agent.speed = 8f;
         agent.acceleration = 10f;
         neutralMask.SetActive(false);
         grumpyMask.SetActive(true);
+        isStill = true;
+        yield return new WaitForSeconds(0.5f);
+        isStill = false;
+        isPossessed = true;
+        targetNode = Player;
+        agent.SetDestination(targetNode.transform.position);
         yield return new WaitForSeconds(Random.Range(3f, 6f));
         grumpyMask.SetActive(false);
         neutralMask.SetActive(true);
@@ -141,13 +144,16 @@ public class BystanderScript : MonoBehaviour
 
     public IEnumerator Feral()
     {
-        isPossessed = true;
-        targetNode = Player;
-        agent.SetDestination(targetNode.transform.position);
         agent.speed = 13f;
         agent.acceleration = 16f;
         neutralMask.SetActive(false);
         grumpyMask.SetActive(true);
+        isStill = true;
+        yield return new WaitForSeconds(0.5f);
+        isStill = false;
+        isPossessed = true;
+        targetNode = Player;
+        agent.SetDestination(targetNode.transform.position);
         yield return new WaitForSeconds(Random.Range(3f, 6f));
         grumpyMask.SetActive(false);
         neutralMask.SetActive(true);

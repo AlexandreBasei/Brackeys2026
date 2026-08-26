@@ -11,6 +11,7 @@ public class AudioManager : PersistentSingleton<AudioManager>
     public AudioClip[] clics;
     [SerializeField] private AudioClip[] GunShots;
     [SerializeField] private AudioClip GunReload;
+    public AudioClip nextDay;
 
     [Header("-------AudioClipMusic-------")]
     public AudioClip MusicMainMenu;

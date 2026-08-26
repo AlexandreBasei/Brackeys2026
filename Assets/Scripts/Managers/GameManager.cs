@@ -75,7 +75,7 @@ public class GameManager : PersistentSingleton<GameManager>
         while (!dayEnded)
         {
             yield return new WaitForSeconds(10f);
-            timerReduction += 0.5f;
+            timerReduction += 1f;
         }
     }
 
@@ -94,6 +94,7 @@ public class GameManager : PersistentSingleton<GameManager>
         if (killed)
         {
             agressive = true;
+            bystanders.Remove(bystander);
         }
 
         if (innocentKilled >= 2)
@@ -135,12 +136,17 @@ public class GameManager : PersistentSingleton<GameManager>
         FindBystanders();
         triggeredFrenzy = false;
         timerReduction = 0;
-        timeLeft = 120f;
+        timeLeft = 60f;
         runningTimer = GameDuration(timeLeft);
         dayCount++;
         isPaused = false;
         PlayerController.Instance.dying = false;
-        StartCoroutine(runningTimer);
+
+        if (dayCount != 4)
+        {
+            StartCoroutine(runningTimer);
+        }
+        
         StartCoroutine(Possession());
         StartCoroutine(TimerHandler());
         dayEnded = false;
@@ -171,6 +177,7 @@ public class GameManager : PersistentSingleton<GameManager>
 
         isPaused = true;
         triggeredFrenzy = false;
+        innocentKilled = 0;
         bystanders.Clear();
     }
 
@@ -184,13 +191,19 @@ public class GameManager : PersistentSingleton<GameManager>
         switch (dayCount)
         {
             case 1:
+                TutoManager.Instance.NextTuto();
                 SceneManager.LoadScene("Day2");
+                AudioManager.Instance.PlaySFX(AudioManager.Instance.nextDay);
                 break;
             case 2:
+                TutoManager.Instance.NextTuto();
                 SceneManager.LoadScene("Day3");
+                AudioManager.Instance.PlaySFX(AudioManager.Instance.nextDay);
                 break;
             case 3:
+                TutoManager.Instance.NextTuto();
                 SceneManager.LoadScene("Day4");
+                AudioManager.Instance.PlaySFX(AudioManager.Instance.nextDay);
                 break;
             case 4:
                 StartCoroutine(killerEndSequence());
@@ -209,10 +222,14 @@ public class GameManager : PersistentSingleton<GameManager>
     public void ResetGame()
     {
         dayCount = 0;
-        innocentKilled = 0;
-        triggeredFrenzy = false;
         agressive = false;
         Cleanup();
+    }
+
+    private void showCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     private void loadMainMenu()
