@@ -15,6 +15,7 @@ public class GameManager : PersistentSingleton<GameManager>
     [HideInInspector] public int innocentKilled;
     public bool isPaused;
     public bool agressive;
+    private IEnumerator timerHandler;
 
 
 
@@ -156,11 +157,11 @@ public class GameManager : PersistentSingleton<GameManager>
 
         dayCount++;
         isPaused = false;
-
+        timerHandler = TimerHandler();
         PlayerController.Instance.dying = false;
 
         StartCoroutine(Possession());
-        StartCoroutine(TimerHandler());
+        StartCoroutine(timerHandler);
     }
 
     private void EndDay()
@@ -186,7 +187,7 @@ public class GameManager : PersistentSingleton<GameManager>
         {
             bystander.StopBehavior();
         }
-
+        StopCoroutine(timerHandler);
         isPaused = true;
         triggeredFrenzy = false;
         innocentKilled = 0;
