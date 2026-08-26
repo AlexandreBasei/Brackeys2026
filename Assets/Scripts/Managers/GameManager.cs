@@ -150,14 +150,13 @@ public class GameManager : PersistentSingleton<GameManager>
     {
         yield return new WaitForSeconds(time);
 
+        print("Day " + dayCount + " ended");
         if (!agressive)
         {
+            print("Pacific Ending");
             PlayerController.Instance.showPacificEnd();
             yield return new WaitForSeconds(5f);
-            AudioManager.Instance.StopMusic();
-            AudioManager.Instance.PlayMusic(AudioManager.Instance.MusicMainMenu);
-            ResetGame();
-            SceneManager.LoadScene("MainMenu");
+            loadMainMenu();
         }
         else
             ChooseDay();
@@ -204,10 +203,7 @@ public class GameManager : PersistentSingleton<GameManager>
     {
         PlayerController.Instance.showKillerEnd();
         yield return new WaitForSeconds(5f);
-        AudioManager.Instance.StopMusic();
-        AudioManager.Instance.PlayMusic(AudioManager.Instance.MusicMainMenu);
-        ResetGame();
-        SceneManager.LoadScene("MainMenu");
+        loadMainMenu();
     }
 
     public void ResetGame()
@@ -219,5 +215,14 @@ public class GameManager : PersistentSingleton<GameManager>
         Cleanup();
     }
 
+    private void loadMainMenu()
+    {
+        ResetGame();
+        AudioManager.Instance.StopMusic();
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.MusicMainMenu);
+        SceneManager.LoadScene("MainMenu");
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
 
 }

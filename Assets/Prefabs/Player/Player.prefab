@@ -635,6 +635,8 @@ MonoBehaviour:
   redScreamer: {fileID: 5253149693086309774}
   neutralScreamer: {fileID: 62277764684250919}
   frenzyScreamer: {fileID: 3501084706006399885}
+  pacificEnd: {fileID: 4917376177133749507}
+  killerEnd: {fileID: 7275656122787761647}
   gameOverText: {fileID: 4837917511803629856}
 --- !u!135 &5021026824111545419
 SphereCollider:
