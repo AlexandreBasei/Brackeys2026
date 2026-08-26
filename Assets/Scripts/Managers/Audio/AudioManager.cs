@@ -15,7 +15,9 @@ public class AudioManager : PersistentSingleton<AudioManager>
     [Header("-------AudioClipMusic-------")]
     public AudioClip MusicMainMenu;
     public AudioClip MusicInGame;
-    public AudioClip MusicEndGame;
+    public AudioClip MusicScreamer;
+    public AudioClip MusicPacificEnd;
+    public AudioClip MusicKillerEnd;
 
 
 
