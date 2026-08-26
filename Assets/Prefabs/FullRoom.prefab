@@ -3345,6 +3345,10 @@ PrefabInstance:
       propertyPath: m_Shadows.m_Type
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4164805547816690094, guid: 6751578191c748b488db216b55c38811, type: 3}
+      propertyPath: delay
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 4374908698943335655, guid: 6751578191c748b488db216b55c38811, type: 3}
       propertyPath: m_Shadows.m_Type
       value: 0
