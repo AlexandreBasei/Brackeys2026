@@ -557,6 +557,8 @@ MonoBehaviour:
   baseStepSpeed: 0.4
   redScreamer: {fileID: 5253149693086309774}
   neutralScreamer: {fileID: 62277764684250919}
+  frenzyScreamer: {fileID: 3501084706006399885}
+  gameOverText: {fileID: 4837917511803629856}
 --- !u!135 &5021026824111545419
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -783,8 +785,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: No one trusts you anymore
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6db574f35e756db4ab0a62568fd599fc, type: 2}
-  m_sharedMaterial: {fileID: -2798568108015237033, guid: 6db574f35e756db4ab0a62568fd599fc, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 35e76620b69d44e4ca837ed993953392, type: 2}
+  m_sharedMaterial: {fileID: -2798568108015237033, guid: 35e76620b69d44e4ca837ed993953392, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

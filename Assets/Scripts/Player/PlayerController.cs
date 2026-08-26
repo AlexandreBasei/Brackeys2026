@@ -131,24 +131,25 @@ public class PlayerController : Singleton<PlayerController>
                 yield return null;
 
         dying = true;
-        GameManager.Instance.Cleanup();
-        GameManager.Instance.dayCount = 0;
-        TutoManager.Instance.currentDay = 0;
 
-        if (!enemy.isSmart)
+        if (!enemy.isSmart && !GameManager.Instance.triggeredFrenzy)
         {
             redScreamer.SetActive(true);
         }
         else if(!enemy.isSmart && GameManager.Instance.triggeredFrenzy)
         {
             frenzyScreamer.SetActive(true);
-            StartCoroutine(showEndText("No one trusts you anymore"));
+            showFrenzyText();
         }
         else
         {
             neutralScreamer.SetActive(true);
         }
 
+        GameManager.Instance.Cleanup();
+        GameManager.Instance.dayCount = 0;
+        GameManager.Instance.innocentKilled = 0;
+        TutoManager.Instance.currentDay = 0;
         AudioManager.Instance.PlaySFX(AudioManager.Instance.MusicEndGame);
 
         yield return new WaitForSeconds(5f);
@@ -160,13 +161,38 @@ public class PlayerController : Singleton<PlayerController>
         Cursor.visible = true;
     }
 
-    public IEnumerator showEndText(string text)
+    public void showFrenzyText()
     {
-        gameOverText.text = text;
-        yield return new WaitForSeconds(1f);
-        LeanTween.alphaText(gameOverText.rectTransform, 1f, 1f).setEase(LeanTweenType.easeInOutQuad);
+        gameOverText.text = "No one trusts you anymore";
+        fadeInGameOverText();
     }
 
-    // You trusted everyone
-    // You trusted no one
+    public void showPacificText()
+    {
+        gameOverText.text = "You trusted everyone";
+        fadeInGameOverText();
+    }
+
+    public void showKillerText()
+    {
+        gameOverText.text = "You trusted no one";
+        fadeInGameOverText();
+    }
+
+    private void fadeInGameOverText()
+{
+    LeanTween.value(
+        gameOverText.gameObject,
+        gameOverText.color.a,
+        1f,
+        1f
+    )
+    .setEase(LeanTweenType.easeInOutQuad)
+    .setOnUpdate((float alpha) =>
+    {
+        Color color = gameOverText.color;
+        color.a = alpha;
+        gameOverText.color = color;
+    });
+}
 }
