@@ -3418,7 +3418,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Super Jam Game
+  m_text: MASQUERADE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6e0d2d5a726d2bc40a821db98e79f923, type: 2}
   m_sharedMaterial: {fileID: 2099103538595997237, guid: 6e0d2d5a726d2bc40a821db98e79f923, type: 2}
