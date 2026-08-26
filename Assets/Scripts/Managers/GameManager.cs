@@ -14,6 +14,7 @@ public class GameManager : PersistentSingleton<GameManager>
     private bool dayEnded;
     private int innocentKilled;
     public bool isPaused;
+    public bool agressive;
     
 
     
@@ -22,7 +23,7 @@ public class GameManager : PersistentSingleton<GameManager>
         bystanders = new List<BystanderScript>();
         eligiblePossession = new List<BystanderScript>();
         isPaused = true;
-        NextDay();
+        agressive = false;
     }
 
 
@@ -88,7 +89,11 @@ public class GameManager : PersistentSingleton<GameManager>
         {
             eligiblePossession.Remove(bystander);
         }
-        
+
+        if (killed)
+        {
+            agressive = true;
+        }
 
         if (innocentKilled >= 2)
         {

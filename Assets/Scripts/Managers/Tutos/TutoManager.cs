@@ -12,7 +12,6 @@ public class TutoManager : PersistentSingleton<TutoManager>
     private Canvas tutoCanvas;
     void Start()
     {
-        tutoCanvas = GetComponent<Canvas>();
         currentDay = GameManager.Instance.dayCount;
     }
 
@@ -39,13 +38,13 @@ public class TutoManager : PersistentSingleton<TutoManager>
                 tutoImages[i].gameObject.SetActive(false);
             }
         }
-
-        tutoCanvas.enabled = true;
+        
+        GetComponent<Canvas>().enabled = true;
     }
 
     public void HideTuto()
     {
-        tutoCanvas.enabled = false;
+        GetComponent<Canvas>().enabled = false;
         AudioManager.Instance.PlaySFX(AudioManager.Instance.closeTuto);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

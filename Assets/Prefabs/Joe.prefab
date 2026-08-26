@@ -3281,7 +3281,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 5
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -3308,8 +3308,10 @@ MonoBehaviour:
   Player: {fileID: 0}
   isPossessed: 0
   isFaking: 0
+  isSmart: 0
   isStill: 0
   isDead: 0
+  isExcluded: 0
   neutralMask: {fileID: 5448112591670367970}
   grumpyMask: {fileID: 4189132679558288719}
   happyMask: {fileID: 5334924578607606624}
