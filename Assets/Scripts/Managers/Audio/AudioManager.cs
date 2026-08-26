@@ -37,32 +37,6 @@ public class AudioManager : PersistentSingleton<AudioManager>
     public AudioClip reload;
 
     [Foldout("AudioClipSFX/Amiance Sound and Event")]
-    public AudioClip whisper1;
-
-    [Foldout("AudioClipSFX/Amiance Sound and Event")]
-    public AudioClip whisper2;
-
-    [Foldout("AudioClipSFX/Amiance Sound and Event")]
-    public AudioClip laught;
-
-    [Foldout("AudioClipSFX/Amiance Sound and Event")]
-    public AudioClip clock;
-
-    [Foldout("AudioClipSFX/Amiance Sound and Event")]
-    public AudioClip cough;
-
-    [Foldout("AudioClipSFX/Amiance Sound and Event")]
-    public AudioClip voice1;
-
-    [Foldout("AudioClipSFX/Amiance Sound and Event")]
-    public AudioClip voice2;
-
-    [Foldout("AudioClipSFX/Amiance Sound and Event")]
-    public AudioClip piano;
-
-    [Foldout("AudioClipSFX/Amiance Sound and Event")]
-    public AudioClip choir;
-    [Foldout("AudioClipSFX/Amiance Sound and Event")]
     public AudioClip closeTuto;
 
     void Start()
