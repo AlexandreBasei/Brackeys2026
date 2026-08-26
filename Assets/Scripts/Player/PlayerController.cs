@@ -114,7 +114,10 @@ public class PlayerController : Singleton<PlayerController>
         BystanderScript enemy = other.gameObject.GetComponentInParent<BystanderScript>();
         if (enemy != null && enemy.isPossessed)
         {
-            StartCoroutine(DeathSequence(enemy));
+            if (GameManager.Instance.agressive)
+            {
+                StartCoroutine(DeathSequence(enemy));
+            }
         }
     }
 
