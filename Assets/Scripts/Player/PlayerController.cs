@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 using System.Collections;
 
 public class PlayerController : Singleton<PlayerController>
@@ -23,6 +24,8 @@ public class PlayerController : Singleton<PlayerController>
     [Header("Screamer Parameters")]
     [SerializeField] private GameObject redScreamer;
     [SerializeField] private GameObject neutralScreamer;
+    [SerializeField] private GameObject frenzyScreamer;
+    [SerializeField] private TextMeshProUGUI gameOverText;
     private float footstepTimer = 0f;
     private float GetCurrentOffset => baseStepSpeed;
 
@@ -132,6 +135,11 @@ public class PlayerController : Singleton<PlayerController>
         {
             redScreamer.SetActive(true);
         }
+        else if(!enemy.isSmart && GameManager.Instance.triggeredFrenzy)
+        {
+            frenzyScreamer.SetActive(true);
+            StartCoroutine(showEndText("No one trusts you anymore"));
+        }
         else
         {
             neutralScreamer.SetActive(true);
@@ -139,7 +147,7 @@ public class PlayerController : Singleton<PlayerController>
 
         AudioManager.Instance.PlaySFX(AudioManager.Instance.MusicEndGame);
 
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(5f);
 
         AudioManager.Instance.StopMusic();
         AudioManager.Instance.PlayMusic(AudioManager.Instance.MusicMainMenu);
@@ -147,4 +155,14 @@ public class PlayerController : Singleton<PlayerController>
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
+
+    public IEnumerator showEndText(string text)
+    {
+        gameOverText.text = text;
+        yield return new WaitForSeconds(1f);
+        LeanTween.alphaText(gameOverText.rectTransform, 1f, 1f).setEase(LeanTweenType.easeInOutQuad);
+    }
+
+    // You trusted everyone
+    // You trusted no one
 }
