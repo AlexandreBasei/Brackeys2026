@@ -38,7 +38,7 @@ public class TutoManager : PersistentSingleton<TutoManager>
                 tutoImages[i].gameObject.SetActive(false);
             }
         }
-        
+
         GetComponent<Canvas>().enabled = true;
     }
 
@@ -54,14 +54,8 @@ public class TutoManager : PersistentSingleton<TutoManager>
     public void NextTuto()
     {
         currentDay++;
-        if (currentDay < tutosData.Length)
-        {
-            ShowTuto();
-        }
-        else
-        {
-            HideTuto();
-        }
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
 }
