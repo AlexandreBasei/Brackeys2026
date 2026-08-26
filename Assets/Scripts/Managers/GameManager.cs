@@ -108,14 +108,14 @@ public class GameManager : PersistentSingleton<GameManager>
 
     public void Frenzy()
     {
-        triggeredFrenzy = true;
         foreach (BystanderScript bystander in bystanders)
         {
-            if (!bystander.isDead)
+            if (!bystander.isDead && !triggeredFrenzy)
             {
                 bystander.Frenzy();
             }
         }
+        triggeredFrenzy = true;
     }
 
     private void FindBystanders()
