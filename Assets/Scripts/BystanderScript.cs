@@ -108,7 +108,7 @@ public class BystanderScript : MonoBehaviour
         isPossessed = true;
         targetNode = Player;
         agent.SetDestination(targetNode.transform.position);
-        agent.speed = 13f;
+        agent.speed = 8f;
         agent.acceleration = 10f;
         neutralMask.SetActive(false);
         grumpyMask.SetActive(true);
@@ -116,7 +116,7 @@ public class BystanderScript : MonoBehaviour
         grumpyMask.SetActive(false);
         neutralMask.SetActive(true);
         isPossessed = false;
-        agent.speed = 5f;
+        agent.speed = 3f;
         agent.acceleration = 8f;
         ChoseTarget();
     }
@@ -126,7 +126,7 @@ public class BystanderScript : MonoBehaviour
         isFaking = true;
         targetNode = Player;
         agent.SetDestination(targetNode.transform.position);
-        agent.speed = 13f;
+        agent.speed = 8f;
         agent.acceleration = 10f;
         neutralMask.SetActive(false);
         happyMask.SetActive(true);
@@ -134,7 +134,7 @@ public class BystanderScript : MonoBehaviour
         happyMask.SetActive(false);
         neutralMask.SetActive(true);
         isFaking = false;
-        agent.speed = 5f;
+        agent.speed = 3f;
         agent.acceleration = 8f;
         ChoseTarget();
     }
@@ -144,7 +144,7 @@ public class BystanderScript : MonoBehaviour
         isPossessed = true;
         targetNode = Player;
         agent.SetDestination(targetNode.transform.position);
-        agent.speed = 17f;
+        agent.speed = 13f;
         agent.acceleration = 16f;
         neutralMask.SetActive(false);
         grumpyMask.SetActive(true);
@@ -152,7 +152,7 @@ public class BystanderScript : MonoBehaviour
         grumpyMask.SetActive(false);
         neutralMask.SetActive(true);
         isPossessed = false;
-        agent.speed = 5f;
+        agent.speed = 3f;
         agent.acceleration = 8f;
         ChoseTarget();
     }
@@ -172,7 +172,7 @@ public class BystanderScript : MonoBehaviour
     public void Frenzy()
     {
         isPossessed = true;
-        agent.speed = 13f;
+        agent.speed = 8f;
         agent.acceleration = 10f;
         targetNode = Player;
         agent.SetDestination(targetNode.transform.position);
