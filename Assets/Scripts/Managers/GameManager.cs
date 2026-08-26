@@ -12,7 +12,7 @@ public class GameManager : PersistentSingleton<GameManager>
     public float timeLeft;
     private IEnumerator runningTimer;
     private bool dayEnded;
-    private int innocentKilled;
+    [HideInInspector] public int innocentKilled;
     public bool isPaused;
     public bool agressive;
     
@@ -108,6 +108,7 @@ public class GameManager : PersistentSingleton<GameManager>
 
     public void Frenzy()
     {
+        triggeredFrenzy = true;
         foreach (BystanderScript bystander in bystanders)
         {
             if (!bystander.isDead)
@@ -158,6 +159,7 @@ public class GameManager : PersistentSingleton<GameManager>
         }
 
         isPaused = true;
+        triggeredFrenzy = false;
         bystanders.Clear();
     }
 

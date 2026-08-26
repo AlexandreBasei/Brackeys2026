@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: Tuto4
   m_EditorClassIdentifier: Assembly-CSharp::TutoData
   title: Day 4
-  text: "The spirits have realized that wearing a colored mask makes them vulnerable.
-    They are now hiding among the guests and will naturally approach you to attack.
-    No more yellow masks have been spotted : they\u2019ve finally lost interest in
-    their pranks."
+  text: "The spirits have realized that wearing a colored mask made them vulnerable.
+    We don\u2019t know what behavior they might adopt now, so stay cautious. No more
+    yellow masks have been spotted, they\u2019ve finally lost interest in their pranks.  "
   images:
-  - {fileID: 21300000, guid: 30b4fdba417d25f429410e9df218ce92, type: 3}
+  - {fileID: 21300000, guid: 4cc990266e6d0ef4f95cfdaa026c8e7e, type: 3}

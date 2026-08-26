@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 using System.Collections;
 
 public class PlayerController : Singleton<PlayerController>
@@ -23,6 +24,8 @@ public class PlayerController : Singleton<PlayerController>
     [Header("Screamer Parameters")]
     [SerializeField] private GameObject redScreamer;
     [SerializeField] private GameObject neutralScreamer;
+    [SerializeField] private GameObject frenzyScreamer;
+    [SerializeField] private TextMeshProUGUI gameOverText;
     private float footstepTimer = 0f;
     private float GetCurrentOffset => baseStepSpeed;
 
@@ -127,22 +130,28 @@ public class PlayerController : Singleton<PlayerController>
                 yield return null;
 
         dying = true;
-        GameManager.Instance.Cleanup();
-        GameManager.Instance.dayCount = 0;
-        TutoManager.Instance.currentDay = 0;
 
-        if (!enemy.isSmart)
+        if (!enemy.isSmart && !GameManager.Instance.triggeredFrenzy)
         {
             redScreamer.SetActive(true);
+        }
+        else if(!enemy.isSmart && GameManager.Instance.triggeredFrenzy)
+        {
+            frenzyScreamer.SetActive(true);
+            showFrenzyText();
         }
         else
         {
             neutralScreamer.SetActive(true);
         }
 
+        GameManager.Instance.Cleanup();
+        GameManager.Instance.dayCount = 0;
+        GameManager.Instance.innocentKilled = 0;
+        TutoManager.Instance.currentDay = 0;
         AudioManager.Instance.PlaySFX(AudioManager.Instance.MusicEndGame);
 
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(5f);
 
         AudioManager.Instance.StopMusic();
         AudioManager.Instance.PlayMusic(AudioManager.Instance.MusicMainMenu);
@@ -150,4 +159,39 @@ public class PlayerController : Singleton<PlayerController>
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
+
+    public void showFrenzyText()
+    {
+        gameOverText.text = "No one trusts you anymore";
+        fadeInGameOverText();
+    }
+
+    public void showPacificText()
+    {
+        gameOverText.text = "You trusted everyone";
+        fadeInGameOverText();
+    }
+
+    public void showKillerText()
+    {
+        gameOverText.text = "You trusted no one";
+        fadeInGameOverText();
+    }
+
+    private void fadeInGameOverText()
+{
+    LeanTween.value(
+        gameOverText.gameObject,
+        gameOverText.color.a,
+        1f,
+        1f
+    )
+    .setEase(LeanTweenType.easeInOutQuad)
+    .setOnUpdate((float alpha) =>
+    {
+        Color color = gameOverText.color;
+        color.a = alpha;
+        gameOverText.color = color;
+    });
+}
 }
