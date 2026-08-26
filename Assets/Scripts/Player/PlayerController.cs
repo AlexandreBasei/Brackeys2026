@@ -25,6 +25,8 @@ public class PlayerController : Singleton<PlayerController>
     [SerializeField] private GameObject redScreamer;
     [SerializeField] private GameObject neutralScreamer;
     [SerializeField] private GameObject frenzyScreamer;
+    [SerializeField] private GameObject pacificEnd;
+    [SerializeField] private GameObject killerEnd;
     [SerializeField] private TextMeshProUGUI gameOverText;
     private float footstepTimer = 0f;
     private float GetCurrentOffset => baseStepSpeed;
@@ -145,11 +147,9 @@ public class PlayerController : Singleton<PlayerController>
             neutralScreamer.SetActive(true);
         }
 
-        GameManager.Instance.Cleanup();
-        GameManager.Instance.dayCount = 0;
-        GameManager.Instance.innocentKilled = 0;
+        GameManager.Instance.ResetGame();
         TutoManager.Instance.currentDay = 0;
-        AudioManager.Instance.PlaySFX(AudioManager.Instance.MusicEndGame);
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.MusicScreamer);
 
         yield return new WaitForSeconds(5f);
 
@@ -166,14 +166,18 @@ public class PlayerController : Singleton<PlayerController>
         fadeInGameOverText();
     }
 
-    public void showPacificText()
+    public void showPacificEnd()
     {
+        pacificEnd.SetActive(true);
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.MusicPacificEnd);
         gameOverText.text = "You trusted everyone";
         fadeInGameOverText();
     }
 
-    public void showKillerText()
+    public void showKillerEnd()
     {
+        killerEnd.SetActive(true);
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.MusicKillerEnd);
         gameOverText.text = "You trusted no one";
         fadeInGameOverText();
     }
