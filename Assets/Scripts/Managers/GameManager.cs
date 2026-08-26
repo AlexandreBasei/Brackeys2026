@@ -16,6 +16,7 @@ public class GameManager : PersistentSingleton<GameManager>
     public bool isPaused;
     public bool agressive;
     private IEnumerator timerHandler;
+    private IEnumerator possessionCoroutine;
 
 
 
@@ -159,8 +160,9 @@ public class GameManager : PersistentSingleton<GameManager>
         isPaused = false;
         timerHandler = TimerHandler();
         PlayerController.Instance.dying = false;
+        possessionCoroutine = Possession();
 
-        StartCoroutine(Possession());
+        StartCoroutine(possessionCoroutine);
         StartCoroutine(timerHandler);
     }
 
@@ -188,6 +190,7 @@ public class GameManager : PersistentSingleton<GameManager>
             bystander.StopBehavior();
         }
         StopCoroutine(timerHandler);
+        StopCoroutine(possessionCoroutine);
         isPaused = true;
         triggeredFrenzy = false;
         innocentKilled = 0;

@@ -149,7 +149,7 @@ public class BystanderScript : MonoBehaviour
         neutralMask.SetActive(false);
         grumpyMask.SetActive(true);
         isStill = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         isStill = false;
         isPossessed = true;
         targetNode = Player;
